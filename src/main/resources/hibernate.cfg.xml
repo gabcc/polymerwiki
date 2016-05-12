@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:mysql://localhost/wiki</property>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password"></property>
+        <!-- DB schema will be updated if needed -->
+        <property name="hbm2ddl.auto">create-drop</property>
+
+        <mapping class="hu.gab.wiki.server.entity.User"/>
+        <mapping class="hu.gab.wiki.server.entity.UserVersion"/>
+        <mapping class="hu.gab.wiki.server.entity.Article"/>
+        <mapping class="hu.gab.wiki.server.entity.ArticleVersion"/>
+        <mapping class="hu.gab.wiki.server.entity.Category"/>
+        <mapping class="hu.gab.wiki.server.entity.CategoryVersion"/>
+        <mapping class="hu.gab.wiki.server.entity.Comment"/>
+        <mapping class="hu.gab.wiki.server.entity.Environment"/>
+    </session-factory>
+</hibernate-configuration>

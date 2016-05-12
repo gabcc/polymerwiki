@@ -1,0 +1,28 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:paper='urn:import:com.vaadin.polymer.paper.widget'>
+    <g:HTMLPanel ui:field="wrapper">
+        <paper:PaperDrawerPanel ui:field="drawerPanel" forceNarrow="true">
+            <div drawer="">
+                <g:HTMLPanel addStyleNames="layout vertical" ui:field="drawerContainer">
+                </g:HTMLPanel>
+            </div>
+
+            <div main="">
+                <paper:PaperHeaderPanel>
+                    <paper:PaperToolbar>
+                        <paper:PaperIconButton ui:field="buttonDrawer" icon="menu"/>
+                        <g:HTMLPanel ui:field="menu">
+                            <paper:PaperButton ui:field="buttonHome" addStyleNames="menubutton">Home</paper:PaperButton>
+                            <paper:PaperButton ui:field="buttonAbout" addStyleNames="menubutton">About</paper:PaperButton>
+                        </g:HTMLPanel>
+                    </paper:PaperToolbar>
+
+                    <div>
+                        <g:SimplePanel ui:field="contentContainer"></g:SimplePanel>
+                    </div>
+                </paper:PaperHeaderPanel>
+            </div>
+        </paper:PaperDrawerPanel>
+    </g:HTMLPanel>
+</ui:UiBinder>

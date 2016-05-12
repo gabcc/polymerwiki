@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,WAAW;EACT,KAAK,EAAE,OAAO;;AAChB,kBAAkB;EAChB,UAAU,EAAE,OAAO;;ACHrB,cAAc;EACZ,SAAS,EAAE,KAAK;EAChB,UAAU,EAAE,KAAK;EACjB,OAAO,EAAE,QAAQ;;AAInB,aAAa;EACX,kBAAkB,EAAE,sCAAsC;EAC1D,eAAe,EAAK,sCAAsC;EAC1D,UAAU,EAAU,sCAAsC",
+"sources": ["css/sass/etc.sass","css/sass/panels.sass"],
+"names": [],
+"file": "wiki.css"
+}

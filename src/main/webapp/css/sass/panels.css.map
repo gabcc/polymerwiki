@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,cAAc;EACZ,SAAS,EAAE,KAAK;EAChB,UAAU,EAAE,KAAK;EACjB,OAAO,EAAE,QAAQ;;AAInB,aAAa;EACX,kBAAkB,EAAE,sCAAsC;EAC1D,eAAe,EAAK,sCAAsC;EAC1D,UAAU,EAAU,sCAAsC",
+"sources": ["panels.sass"],
+"names": [],
+"file": "panels.css"
+}

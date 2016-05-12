@@ -1,0 +1,17 @@
+.menubutton {
+  color: #ffffff; }
+
+.menubutton.active {
+  background: #09a236; }
+
+.w-panel-small {
+  max-width: 200px;
+  min-height: 100px;
+  padding: 10px 5px; }
+
+.w-polyshadow {
+  -webkit-box-shadow: 0px 3px 3px 0px rgba(50, 50, 50, 0.45);
+  -moz-box-shadow: 0px 3px 3px 0px rgba(50, 50, 50, 0.45);
+  box-shadow: 0px 3px 3px 0px rgba(50, 50, 50, 0.45); }
+
+/*# sourceMappingURL=wiki.css.map */

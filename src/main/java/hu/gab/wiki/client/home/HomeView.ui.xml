@@ -1,0 +1,8 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:paper='urn:import:com.vaadin.polymer.paper.widget'>
+    <g:HTMLPanel addStyleNames="w-panel-small">
+        <paper:PaperButton ui:field="homeAddButton">Add</paper:PaperButton>
+        <paper:PaperInput ui:field="homeAddInput" placeholder="New element text1"></paper:PaperInput>
+    </g:HTMLPanel>
+</ui:UiBinder>
