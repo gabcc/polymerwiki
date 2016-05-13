@@ -1,9 +1,7 @@
 package hu.gab.wiki.server.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +11,10 @@ import java.util.List;
  */
 
 @Entity
-public class Category extends AbstractEntity {
+public class Category implements Serializable {
+
+    @Id
+    private long id;
 
     @Column(name = "SLUG", unique = true)
     private String slug;
@@ -41,5 +42,21 @@ public class Category extends AbstractEntity {
 
     public void setEnvironment(Environment environment) {
         this.environment = environment;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public List<CategoryVersion> getVersions() {
+        return versions;
+    }
+
+    public void setVersions(List<CategoryVersion> versions) {
+        this.versions = versions;
     }
 }

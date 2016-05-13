@@ -1,8 +1,9 @@
 package hu.gab.wiki.server.dal;
 
-import com.sun.istack.internal.logging.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
+import java.util.logging.Logger;
 
 /**
  * @author PG
@@ -10,12 +11,13 @@ import org.hibernate.cfg.Configuration;
  */
 public class HibernateUtil {
 
-    private static final Logger logger = Logger.getLogger(HibernateUtil.class);
+    private static final Logger logger = Logger.getLogger(HibernateUtil.class.getName());
 
     private static final HibernateUtil instance = new HibernateUtil();
 
-    private HibernateUtil(){
+    private HibernateUtil() {
     }
+
     private SessionFactory sessionFactory;
 
     public static HibernateUtil getInstance() {

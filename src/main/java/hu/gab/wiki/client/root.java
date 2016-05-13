@@ -11,7 +11,8 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.web.bindery.event.shared.EventBus;
 import com.vaadin.polymer.Polymer;
 import hu.gab.wiki.client.drawer.DrawerManager;
-import hu.gab.wiki.client.home.HomePlace;
+import hu.gab.wiki.client.drawer.DrawerMenuFiller;
+import hu.gab.wiki.client.front.home.HomePlace;
 import hu.gab.wiki.client.ioc.ActivityMapper;
 import hu.gab.wiki.client.ioc.ClientFactory;
 import hu.gab.wiki.client.ioc.ClientFactoryImpl;
@@ -44,6 +45,8 @@ public class root implements EntryPoint {
         RootPanel.get().add(webAppContaier);
 
         initIOC_Container(mainWrapper.getContentContainer(), START_PLACE);
+
+        afterLoad();
     }
 
     private void initIOC_Container(SimplePanel simplePanel, Place defaultPlace) {
@@ -71,5 +74,9 @@ public class root implements EntryPoint {
         Polymer.importHref("paper-header-panel/paper-header-panel.html");
         Polymer.importHref("paper-toolbar/paper-toolbar.html");
         Polymer.importHref("paper-icon-button/paper-icon-button.html");
+    }
+
+    private void afterLoad(){
+        new DrawerMenuFiller(clientFactory).fillMenu();
     }
 }

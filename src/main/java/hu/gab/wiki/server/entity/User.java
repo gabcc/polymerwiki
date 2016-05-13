@@ -1,8 +1,11 @@
 package hu.gab.wiki.server.entity;
 
-import javax.persistence.Column;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
+
+import javax.persistence.*;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,10 +16,16 @@ import java.util.List;
  */
 
 @Entity
-public class User extends AbstractEntity {
+public class User implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long id;
 
     @Column(name = "NAME")
     private String name;
+
+    @Column(name = "EMAIL")
+    private String email;
 
     @Column(name = "PASSWORD_HASH")
     private String passwordHash;
@@ -25,6 +34,7 @@ public class User extends AbstractEntity {
     private Date created;
 
     @OneToMany(mappedBy = "user")
+    @Cascade(CascadeType.ALL)
     private List<UserVersion> versions = new ArrayList<>();
 
     public User() {
@@ -60,5 +70,21 @@ public class User extends AbstractEntity {
 
     public void setVersions(List<UserVersion> versions) {
         this.versions = versions;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

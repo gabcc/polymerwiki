@@ -13,7 +13,10 @@ abstract public class WikiView<T extends IWikiPresenter> extends Composite imple
     @Override
     public void setActivity(T activity) {
         this.activity = activity;
+        afterActivitySet();
     }
+
+    protected abstract void afterActivitySet();
 
     @Override
     public void makeWidgetSetItself(AcceptsOneWidget acceptsOneWidget) {

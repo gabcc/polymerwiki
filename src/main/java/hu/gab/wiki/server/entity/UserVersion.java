@@ -1,9 +1,12 @@
 package hu.gab.wiki.server.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import org.hibernate.annotations.Cascade;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author PG
@@ -11,13 +14,20 @@ import java.util.Date;
  */
 
 @Entity
-public class UserVersion extends AbstractEntity {
+public class UserVersion implements Serializable {
+    @Id
+    @GeneratedValue
+    private long id;
 
     @ManyToOne
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private User user;
 
     @Column(name = "CREATED")
     private Date created;
+
+    @ManyToMany
+    private List<Role> roles = new ArrayList<>();
 
     public UserVersion() {
     }
@@ -36,5 +46,21 @@ public class UserVersion extends AbstractEntity {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }

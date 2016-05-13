@@ -1,6 +1,7 @@
 package hu.gab.wiki.server.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,7 +12,10 @@ import java.util.List;
  */
 
 @Entity
-public class Article extends AbstractEntity {
+public class Article implements Serializable {
+
+    @Id
+    private long id;
 
     @Column(name = "SLUG", unique = true)
     private String slug;
@@ -32,6 +36,14 @@ public class Article extends AbstractEntity {
     private List<Comment> comments = new ArrayList<>();
 
     public Article() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getSlug() {
@@ -81,4 +93,6 @@ public class Article extends AbstractEntity {
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
+
+
 }

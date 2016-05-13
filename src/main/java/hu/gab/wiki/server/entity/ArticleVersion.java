@@ -2,8 +2,9 @@ package hu.gab.wiki.server.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -12,7 +13,10 @@ import java.util.Date;
  */
 
 @Entity
-public class ArticleVersion extends AbstractEntity {
+public class ArticleVersion implements Serializable {
+
+    @Id
+    private long id;
 
     @Column(name = "NAME")
     private String name;
@@ -23,7 +27,7 @@ public class ArticleVersion extends AbstractEntity {
     @Column(name = "CONTENT")
     private String content;
 
-    @OneToMany
+    @ManyToOne
     private User creator;
 
     @ManyToOne
@@ -62,5 +66,21 @@ public class ArticleVersion extends AbstractEntity {
 
     public void setArticle(Article article) {
         this.article = article;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -3,11 +3,13 @@ package hu.gab.wiki.client.ioc;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.web.bindery.event.shared.EventBus;
-import hu.gab.wiki.client.about.AboutView;
-import hu.gab.wiki.client.about.IAboutView;
+import hu.gab.wiki.client.admin.user.IUserAdminView;
+import hu.gab.wiki.client.admin.user.UserAdminView;
+import hu.gab.wiki.client.front.about.AboutView;
+import hu.gab.wiki.client.front.about.IAboutView;
 import hu.gab.wiki.client.drawer.DrawerManager;
-import hu.gab.wiki.client.home.HomeView;
-import hu.gab.wiki.client.home.IHomeView;
+import hu.gab.wiki.client.front.home.HomeView;
+import hu.gab.wiki.client.front.home.IHomeView;
 
 /**
  * @author PG
@@ -20,6 +22,12 @@ public class ClientFactoryImpl implements ClientFactory {
 
     private HomeView homeView;
     private AboutView aboutView;
+
+    /**
+     * Admin feluletek
+     */
+    private UserAdminView userAdminView;
+
 
     @Override
     public EventBus getEventBus() {
@@ -36,7 +44,6 @@ public class ClientFactoryImpl implements ClientFactory {
         if (aboutView == null) {
             aboutView = new AboutView();
         }
-
         return aboutView;
     }
 
@@ -45,8 +52,15 @@ public class ClientFactoryImpl implements ClientFactory {
         if (homeView == null) {
             homeView = new HomeView();
         }
-
         return homeView;
+    }
+
+    @Override
+    public IUserAdminView getUserAdminView() {
+        if (userAdminView== null) {
+            userAdminView = new UserAdminView();
+        }
+        return userAdminView;
     }
 
     @Override

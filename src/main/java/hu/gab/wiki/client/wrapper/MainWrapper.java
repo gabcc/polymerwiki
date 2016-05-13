@@ -13,9 +13,9 @@ import com.google.web.bindery.event.shared.EventBus;
 import com.vaadin.polymer.paper.widget.PaperButton;
 import com.vaadin.polymer.paper.widget.PaperDrawerPanel;
 import com.vaadin.polymer.paper.widget.PaperIconButton;
-import hu.gab.wiki.client.about.AboutPlace;
 import hu.gab.wiki.client.events.BeforeActivityChanged;
-import hu.gab.wiki.client.home.HomePlace;
+import hu.gab.wiki.client.front.about.AboutPlace;
+import hu.gab.wiki.client.front.home.HomePlace;
 import hu.gab.wiki.client.ioc.ClientFactory;
 
 import java.util.ArrayList;

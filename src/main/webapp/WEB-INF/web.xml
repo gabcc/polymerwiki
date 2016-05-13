@@ -4,6 +4,14 @@
     "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
+  <servlet>
+    <servlet-name>hu.gab.wiki.root WikiService</servlet-name>
+    <servlet-class>hu.gab.wiki.server.WikiServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>hu.gab.wiki.root WikiService</servlet-name>
+    <url-pattern>/root/WikiService</url-pattern>
+  </servlet-mapping>
 
   <!-- Default page to serve -->
   <welcome-file-list>

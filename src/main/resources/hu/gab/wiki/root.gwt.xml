@@ -21,4 +21,5 @@
     <when-type-is class="hu.gab.wiki.client.ioc.ClientFactory"/>
   </replace-with>
 
+  <servlet path="/WikiService" class="hu.gab.wiki.server.WikiServiceImpl"/>
 </module>
