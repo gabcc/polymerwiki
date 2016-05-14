@@ -61,9 +61,6 @@ public class BootstrapModal extends Composite {
 
     protected native void show(Element element)/*-{
         var $ = $wnd.jQuery;
-
-        console.log($(element));
-
         $(element).modal('show');
     }-*/;
 

@@ -13,7 +13,7 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row w-row">
                 <div class="col-md-12">
                     <g:SimplePanel ui:field="celltableHolder"></g:SimplePanel>
                 </div>

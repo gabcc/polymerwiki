@@ -2,6 +2,7 @@ package hu.gab.wiki.client;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import hu.gab.wiki.shared.dto.DTO_User;
+import hu.gab.wiki.shared.exceptions.CommonWikiException;
 
 import java.util.List;
 

@@ -74,9 +74,12 @@ public class root implements EntryPoint {
         Polymer.importHref("paper-header-panel/paper-header-panel.html");
         Polymer.importHref("paper-toolbar/paper-toolbar.html");
         Polymer.importHref("paper-icon-button/paper-icon-button.html");
+        Polymer.importHref("paper-toast/paper-toast.html");
     }
 
     private void afterLoad(){
         new DrawerMenuFiller(clientFactory).fillMenu();
+
+        AppUtils.init();
     }
 }

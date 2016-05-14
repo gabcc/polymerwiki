@@ -2,6 +2,7 @@ package hu.gab.wiki.server.dal;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 import java.util.logging.Logger;
 
@@ -18,6 +19,7 @@ public class TransactionDBTemplate<T> {
         try {
             transaction = session.beginTransaction();
             queryTemplate.execute(session, this);
+            transaction.commit();
         } catch (Throwable t) {
             if (transaction != null) {
                 transaction.rollback();
@@ -25,10 +27,6 @@ public class TransactionDBTemplate<T> {
             logger.warning(t.getMessage());
             t.printStackTrace();
             throw new RuntimeException(t);
-        } finally {
-            if (transaction != null) {
-                transaction.commit();
-            }
         }
     }
 }

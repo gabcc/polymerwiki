@@ -5,9 +5,9 @@ import hu.gab.wiki.client.WikiService;
 import hu.gab.wiki.server.dal.DBTemplate;
 import hu.gab.wiki.server.dao.DAO_User;
 import hu.gab.wiki.server.entity.User;
-import hu.gab.wiki.server.entity.UserVersion;
 import hu.gab.wiki.server.service.UserService;
 import hu.gab.wiki.shared.dto.DTO_User;
+import hu.gab.wiki.shared.exceptions.CommonWikiException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,11 +27,16 @@ public class WikiServiceImpl extends RemoteServiceServlet implements WikiService
     }
 
     @Override
-    public void addNewUser(String name, String email, String password) {
-        if(name == null || email == null || password == null){
+    public void addNewUser(String name, String email, String password) throws CommonWikiException {
+        if (name == null || email == null || password == null) {
             throw new RuntimeException("Nincs megadva egy szükséges elem!");
         }
 
-        UserService.addNewUser(name, email, password);
+        try{
+            UserService.addNewUser(name, email, password);
+        }catch (Throwable r){
+            throw new CommonWikiException(r.getMessage());
+        }
+
     }
 }

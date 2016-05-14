@@ -4,6 +4,7 @@ import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import com.google.gwt.core.client.GWT;
 import hu.gab.wiki.shared.dto.DTO_User;
+import hu.gab.wiki.shared.exceptions.CommonWikiException;
 
 import java.util.List;
 
@@ -27,5 +28,5 @@ public interface WikiService extends RemoteService {
 
     List<DTO_User> listUsers();
 
-    void addNewUser(String name, String email, String password);
+    void addNewUser(String name, String email, String password) throws CommonWikiException;
 }

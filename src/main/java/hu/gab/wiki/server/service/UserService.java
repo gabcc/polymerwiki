@@ -5,6 +5,8 @@ import hu.gab.wiki.server.dal.TransactionDBTemplate;
 import hu.gab.wiki.server.dao.DAO_User;
 import hu.gab.wiki.server.entity.User;
 import hu.gab.wiki.server.entity.UserVersion;
+import hu.gab.wiki.shared.exceptions.CommonWikiException;
+import org.eclipse.jetty.io.RuntimeIOException;
 
 import java.util.Date;
 
@@ -31,7 +33,7 @@ public class UserService {
                     UserVersion userVersion = new UserVersion();
                     userVersion.setUser(user);
                     userVersion.setCreated(new Date());
-//
+
                     session.save(user);
                 }
                 else {
