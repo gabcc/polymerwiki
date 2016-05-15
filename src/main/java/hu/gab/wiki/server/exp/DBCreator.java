@@ -1,6 +1,11 @@
 package hu.gab.wiki.server.exp;
 
 import hu.gab.wiki.server.dal.DBTemplate;
+import hu.gab.wiki.server.dal.TransactionDBTemplate;
+import hu.gab.wiki.server.dao.DAO_Environment;
+import hu.gab.wiki.server.dao.DAO_Role;
+import hu.gab.wiki.server.entity.Environment;
+import hu.gab.wiki.server.entity.Role;
 import hu.gab.wiki.server.entity.User;
 import hu.gab.wiki.server.service.UserService;
 
@@ -16,17 +21,54 @@ public class DBCreator {
         createDb();
 //        testRead();
 
-        createUser();
+//        createUser();
+
+        createRoles();
+        createEnvironments();
     }
 
-    private static void createDb(){
+    private static void createDb() {
         new DBTemplate<Void>((session, template) -> {
 
         });
         System.out.println("megy");
     }
 
-    private static void createUser(){
+    private static void createRoles() {
+        final Role admin = new Role();
+        admin.setName("admin");
+
+        final Role editor = new Role();
+        editor.setName("editor");
+
+        final Role visitor = new Role();
+        visitor.setName("visitor");
+
+        new DBTemplate<Void>((session, template) -> {
+            new TransactionDBTemplate<Void>(session, (session1, transactionDBTemplate) -> {
+                DAO_Role.add(session1, admin);
+                DAO_Role.add(session1, editor);
+                DAO_Role.add(session1, visitor);
+            });
+        });
+    }
+
+    private static void createEnvironments() {
+        final Environment devEnv = new Environment();
+        devEnv.setName("dev");
+
+        final Environment prodEnv = new Environment();
+        prodEnv.setName("prod");
+
+        new DBTemplate<Void>((session, template) -> {
+            new TransactionDBTemplate<Void>(session, (session1, transactionDBTemplate) -> {
+                DAO_Environment.add(session1, devEnv);
+                DAO_Environment.add(session1, prodEnv);
+            });
+        });
+    }
+
+    private static void createUser() {
         final User user = new User();
         user.setName("user1");
         user.setEmail("user1@asdsad.com");

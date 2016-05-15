@@ -40,4 +40,12 @@
 .w-error-icon {
   color: #FF5252; }
 
+.logged-in-user-container {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  color: #388E3C;
+  padding: 10px;
+  background: #fff; }
+
 /*# sourceMappingURL=wiki.css.map */

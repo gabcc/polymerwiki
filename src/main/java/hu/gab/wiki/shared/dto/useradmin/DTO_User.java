@@ -1,6 +1,10 @@
-package hu.gab.wiki.shared.dto;
+package hu.gab.wiki.shared.dto.useradmin;
 
 import hu.gab.wiki.shared.DTO_Base;
+import hu.gab.wiki.shared.status.UserStatus;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author PG
@@ -10,10 +14,11 @@ public class DTO_User implements DTO_Base {
     private long id;
 
     private String name;
-
     private String email;
-
     private String password;
+    private UserStatus status;
+
+    private List<DTO_Role> roles = new ArrayList<>();
 
     public DTO_User() {
     }
@@ -48,5 +53,21 @@ public class DTO_User implements DTO_Base {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<DTO_Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<DTO_Role> roles) {
+        this.roles = roles;
+    }
+
+    public UserStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(UserStatus status) {
+        this.status = status;
     }
 }

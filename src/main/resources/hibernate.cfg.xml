@@ -25,5 +25,6 @@
         <mapping class="hu.gab.wiki.server.entity.Comment"/>
         <mapping class="hu.gab.wiki.server.entity.Environment"/>
         <mapping class="hu.gab.wiki.server.entity.Role"/>
+        <mapping class="hu.gab.wiki.server.entity.UserToken"/>
     </session-factory>
 </hibernate-configuration>

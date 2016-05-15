@@ -14,6 +14,7 @@ import java.util.List;
 public class Category implements Serializable {
 
     @Id
+    @GeneratedValue
     private long id;
 
     @Column(name = "SLUG", unique = true)

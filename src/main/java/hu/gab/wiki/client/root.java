@@ -27,6 +27,7 @@ public class root implements EntryPoint {
     private static final Place START_PLACE = new HomePlace();
 
     private ClientFactory clientFactory;
+    private DrawerManager drawerManager;
 
     /**
      * This is the entry point method.
@@ -38,7 +39,7 @@ public class root implements EntryPoint {
         SimplePanel webAppContaier = new SimplePanel();
         MainWrapper mainWrapper = new MainWrapper(clientFactory);
 
-        DrawerManager drawerManager = new DrawerManager(mainWrapper.getDrawerContainer());
+        drawerManager = new DrawerManager(mainWrapper.getDrawerContainer());
         ((ClientFactoryImpl)clientFactory).setDrawerManager(drawerManager);
 
         webAppContaier.add(mainWrapper);
@@ -78,8 +79,7 @@ public class root implements EntryPoint {
     }
 
     private void afterLoad(){
-        new DrawerMenuFiller(clientFactory).fillMenu();
-
-        AppUtils.init();
+        AppUtils.init(clientFactory);
+        drawerManager.initEventHandlers();
     }
 }

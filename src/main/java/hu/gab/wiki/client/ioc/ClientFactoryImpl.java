@@ -10,6 +10,8 @@ import hu.gab.wiki.client.front.about.IAboutView;
 import hu.gab.wiki.client.drawer.DrawerManager;
 import hu.gab.wiki.client.front.home.HomeView;
 import hu.gab.wiki.client.front.home.IHomeView;
+import hu.gab.wiki.client.store.ClientStore;
+import hu.gab.wiki.shared.dto.DTO_Token;
 
 /**
  * @author PG
@@ -22,6 +24,8 @@ public class ClientFactoryImpl implements ClientFactory {
 
     private HomeView homeView;
     private AboutView aboutView;
+
+    private ClientStore clientStore = new ClientStore();
 
     /**
      * Admin feluletek
@@ -67,6 +71,12 @@ public class ClientFactoryImpl implements ClientFactory {
     public DrawerManager getDrawerManager() {
         return drawerManager;
     }
+
+    @Override
+    public ClientStore getClientStore() {
+        return clientStore;
+    }
+
 
     public void setDrawerManager(DrawerManager drawerManager) {
         this.drawerManager = drawerManager;

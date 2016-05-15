@@ -2,7 +2,6 @@ package hu.gab.wiki.server.dal;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 import java.util.logging.Logger;
 

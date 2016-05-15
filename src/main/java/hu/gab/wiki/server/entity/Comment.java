@@ -1,5 +1,7 @@
 package hu.gab.wiki.server.entity;
 
+import hu.gab.wiki.shared.status.ContentStatus;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -11,6 +13,7 @@ import java.util.Date;
 @Entity
 public class Comment implements Serializable {
     @Id
+    @GeneratedValue
     private long id;
 
     @ManyToOne

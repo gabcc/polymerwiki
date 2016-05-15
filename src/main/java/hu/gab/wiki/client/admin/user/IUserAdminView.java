@@ -1,7 +1,7 @@
 package hu.gab.wiki.client.admin.user;
 
 import hu.gab.wiki.client.mvp.IWikiView;
-import hu.gab.wiki.shared.dto.DTO_User;
+import hu.gab.wiki.shared.dto.useradmin.DTO_User;
 
 import java.util.List;
 

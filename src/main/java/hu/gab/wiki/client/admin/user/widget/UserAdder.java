@@ -25,7 +25,7 @@ public class UserAdder {
         this.userAdminPresenter = userAdminPresenter;
 
         clickHandler = () -> {
-            userAdminPresenter.onUserAdd(inputName.getValue(), inputEmail.getValue(), inputPassword.getValue(), this);
+            userAdminPresenter.onUserAdd(this);
         };
 
         Label label = new Label("Kérlek add meg a kitöltendő elemeket");

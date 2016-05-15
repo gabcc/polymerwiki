@@ -1,12 +1,13 @@
 //Fő arculati elemek
 
 $w-color-error: #FF5252
+$w-color-primary: #388E3C
 
 $color-btn-primary: #fff
 $color-btn-secondary: $color-btn-primary
 $color-btn-error: $color-btn-primary
 
-$background-btn-primary: #388E3C
+$background-btn-primary: $w-color-primary
 $background-btn-secondary: #8BC34A
 $background-btn-error: $w-color-error
 
@@ -28,3 +29,11 @@ $background-btn-error: $w-color-error
 
 .w-error-icon
   color: $w-color-error
+
+.logged-in-user-container
+  position: absolute
+  top: 10px
+  right: 20px
+  color: $w-color-primary
+  padding: 10px
+  background: #fff

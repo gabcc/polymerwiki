@@ -6,7 +6,9 @@ import hu.gab.wiki.server.dal.DBTemplate;
 import hu.gab.wiki.server.dao.DAO_User;
 import hu.gab.wiki.server.entity.User;
 import hu.gab.wiki.server.service.UserService;
-import hu.gab.wiki.shared.dto.DTO_User;
+import hu.gab.wiki.shared.dto.DTO_Token;
+import hu.gab.wiki.shared.dto.useradmin.DTO_Role;
+import hu.gab.wiki.shared.dto.useradmin.DTO_User;
 import hu.gab.wiki.shared.exceptions.CommonWikiException;
 
 import java.util.List;
@@ -19,11 +21,14 @@ import java.util.stream.Collectors;
 public class WikiServiceImpl extends RemoteServiceServlet implements WikiService {
     @Override
     public List<DTO_User> listUsers() {
-        List<User> users = new DBTemplate<List<User>>((session, template) -> {
-            template.setResult(DAO_User.list(session));
+        List<DTO_User> users = new DBTemplate<List<DTO_User>>((session, template) -> {
+            List<User> tempUsers = DAO_User.list(session);
+            template.setResult(
+                    tempUsers.stream().map(DTO.instance::dto).collect(Collectors.toList())
+            );
         }).getResult();
 
-        return users.stream().map(DTO::dto).collect(Collectors.toList());
+        return users;
     }
 
     @Override
@@ -38,5 +43,30 @@ public class WikiServiceImpl extends RemoteServiceServlet implements WikiService
             throw new CommonWikiException(r.getMessage());
         }
 
+    }
+
+    @Override
+    public void updateUser(DTO_User user) throws CommonWikiException {
+        UserService.updateUser(user);
+    }
+
+    @Override
+    public List<DTO_Role> getRoles() {
+        return UserService.getRoles();
+    }
+
+    @Override
+    public DTO_Token login(String email, String password) throws CommonWikiException {
+        if(email == null || password == null){
+            throw new CommonWikiException("Nincs megadva vagy az email vagy a password");
+        }
+
+        try{
+            DTO_Token login = UserService.login(email, password);
+            return login;
+        }
+        catch (Throwable t){
+            throw new CommonWikiException(t.getMessage());
+        }
     }
 }

@@ -1,15 +1,18 @@
 package hu.gab.wiki.client.admin.user;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import hu.gab.wiki.client.AppUtils;
 import hu.gab.wiki.client.WikiService;
 import hu.gab.wiki.client.admin.user.widget.UserAdder;
+import hu.gab.wiki.client.admin.user.widget.UserModifier;
+import hu.gab.wiki.client.helper.CommonWikiAsyncHandler;
+import hu.gab.wiki.client.helper.UserAdminHelper;
 import hu.gab.wiki.client.ioc.ClientFactory;
 import hu.gab.wiki.client.mvp.WikiActivity;
-import hu.gab.wiki.shared.dto.DTO_User;
+import hu.gab.wiki.shared.dto.useradmin.DTO_Role;
+import hu.gab.wiki.shared.dto.useradmin.DTO_User;
 
 import java.util.List;
 
@@ -42,35 +45,25 @@ public class UserAdminActivity extends WikiActivity<IUserAdminView> implements U
     }
 
     @Override
-    public void onUserAdd(String name, String email, String password, UserAdder caller) {
-        boolean error = false;
+    public void onUserAdd(UserAdder caller) {
+        boolean valid = true;
 
-        if (name == null || name.length() == 0) {
-            caller.getInputName().setErrorMessage("name is missing");
-            caller.getInputName().setInvalid(true);
-            error = true;
-        } else {
-            caller.getInputName().setInvalid(false);
+        if (!UserAdminHelper.validateName(caller.getInputName())) {
+            valid = false;
+        }
+        if (!UserAdminHelper.validateEmail(caller.getInputEmail())) {
+            valid = false;
+        }
+        if (!UserAdminHelper.validatePassword(caller.getInputPassword())) {
+            valid = false;
         }
 
-        if (email == null || email.length() == 0) {
-            caller.getInputEmail().setErrorMessage("Email is not valid");
-            caller.getInputEmail().setInvalid(true);
-            error = true;
-        } else {
-            caller.getInputEmail().setInvalid(false);
-        }
-
-        if (password == null || password.length() == 0) {
-            caller.getInputPassword().setErrorMessage("password is missing");
-            caller.getInputPassword().setInvalid(true);
-            error = true;
-        } else {
-            caller.getInputPassword().setInvalid(false);
-        }
-
-        if (error == false) {
+        if (valid) {
             AppUtils.showLoadingSpinner();
+
+            String name = caller.getInputName().getValue();
+            String email = caller.getInputEmail().getValue();
+            String password = caller.getInputPassword().getValue();
 
             WikiService.App.getInstance().addNewUser(name, email, password, new AsyncCallback<Void>() {
                 @Override
@@ -93,5 +86,57 @@ public class UserAdminActivity extends WikiActivity<IUserAdminView> implements U
         }
     }
 
+    @Override
+    public void onUserSave(UserModifier modifier) {
+        boolean valid = true;
 
+        if(!UserAdminHelper.validateName(modifier.getInputName())){
+            valid = false;
+        }
+
+        if(!UserAdminHelper.validateEmail(modifier.getInputEmail())){
+            valid = false;
+        }
+
+        if(!modifier.getUserPassword().equals("")){
+            if(!UserAdminHelper.validatePassword(modifier.getInputPassword())){
+                valid = false;
+            }
+        }
+
+        if(valid){
+            DTO_User modifiedUser = modifier.createModifiedUser();
+            AppUtils.showLoadingSpinner();
+            WikiService.App.getInstance().updateUser(modifiedUser, new CommonWikiAsyncHandler<Void>() {
+                @Override
+                public void onSuccess(Void result) {
+                    view.clearUserList();
+                    refreshUserList();
+
+                    modifier.hide();
+                    AppUtils.hideLoadingSpinner();
+                    AppUtils.showToast(0, "Sikeres user update", false);
+                }
+            });
+        }
+    }
+
+    @Override
+    public void getRoles(NeedsRoleList needsRoleList) {
+        AppUtils.showLoadingSpinner();
+
+        WikiService.App.getInstance().getRoles(new AsyncCallback<List<DTO_Role>>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                AppUtils.hideLoadingSpinner();
+                AppUtils.showToast(0, caught.getMessage(), true);
+            }
+
+            @Override
+            public void onSuccess(List<DTO_Role> result) {
+                AppUtils.hideLoadingSpinner();
+                needsRoleList.onRolesLoad(result);
+            }
+        });
+    }
 }

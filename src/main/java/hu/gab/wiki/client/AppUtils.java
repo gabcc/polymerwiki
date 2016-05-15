@@ -6,6 +6,7 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.vaadin.polymer.iron.widget.IronIcon;
 import com.vaadin.polymer.paper.widget.PaperSpinner;
 import com.vaadin.polymer.paper.widget.PaperToast;
+import hu.gab.wiki.client.ioc.ClientFactory;
 
 import java.util.logging.Logger;
 
@@ -16,6 +17,8 @@ import java.util.logging.Logger;
 public class AppUtils {
     private static final Logger logger = Logger.getLogger(AppUtils.class.getName());
 
+    private static ClientFactory clientFactory = null;
+
     private static SimplePanel spinnerContainer;
     private static PaperSpinner spinner;
 
@@ -24,7 +27,9 @@ public class AppUtils {
 
     private static boolean initted = false;
 
-    public static void init() {
+    public static void init(ClientFactory clientFactory) {
+        AppUtils.clientFactory = clientFactory;
+
         spinnerContainer = new SimplePanel();
         spinner = new PaperSpinner("Loading...");
 
@@ -93,5 +98,9 @@ public class AppUtils {
 
             toast.show();
         }
+    }
+
+    public static ClientFactory getClientFactory() {
+        return clientFactory;
     }
 }

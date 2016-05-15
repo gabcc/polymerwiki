@@ -1,8 +1,11 @@
 package hu.gab.wiki.server.dao;
 
 import hu.gab.wiki.server.entity.User;
+import hu.gab.wiki.shared.dto.useradmin.DTO_User;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.DistinctRootEntityResultTransformer;
 
 import java.util.List;
 
@@ -13,6 +16,7 @@ import java.util.List;
 public class DAO_User {
     public static User get(Session session, long id) {
         List users = session.createCriteria(User.class).
+                setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).
                 add(Restrictions.eq("id", id)).list();
 
         if (users.size() > 1) {
@@ -54,5 +58,18 @@ public class DAO_User {
 
     public static void add(Session session, User user) {
         session.save(user);
+    }
+
+    public static void update(Session session, User user){
+        session.update(user);
+    }
+
+    /**
+     * Csak teszt célokra
+     * @param session
+     * @param user
+     */
+    public static void delete(Session session, User user){
+        session.delete(user);
     }
 }

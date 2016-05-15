@@ -1,4 +1,4 @@
-package hu.gab.wiki.server.entity;
+package hu.gab.wiki.shared.status;
 
 import java.io.Serializable;
 

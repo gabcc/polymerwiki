@@ -15,7 +15,11 @@
                         <g:HTMLPanel ui:field="menu">
                             <paper:PaperButton ui:field="buttonHome" addStyleNames="menubutton">Home</paper:PaperButton>
                             <paper:PaperButton ui:field="buttonAbout" addStyleNames="menubutton">About</paper:PaperButton>
+                            <paper:PaperButton ui:field="buttonLogin" addStyleNames="menubutton">Login</paper:PaperButton>
                         </g:HTMLPanel>
+
+                        <g:Label visible="false" ui:field="loggedInUserContainer" addStyleNames="logged-in-user-container">
+                        </g:Label>
                     </paper:PaperToolbar>
 
                     <div>

@@ -13,6 +13,7 @@ import java.util.List;
 @Entity
 public class CategoryVersion implements Serializable {
     @Id
+    @GeneratedValue
     private long id;
 
     @Column(name = "CREATED")

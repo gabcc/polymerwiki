@@ -1,9 +1,6 @@
 package hu.gab.wiki.server.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +13,14 @@ import java.util.List;
 @Entity
 public class Role implements Serializable {
     @Id
+    @GeneratedValue
     private long id;
 
     @Column(name = "NAME")
     private String name;
 
     @ManyToMany
-    private List<UserVersion> users = new ArrayList<>();
+    private List<UserVersion> userVersions = new ArrayList<>();
 
     public Role() {
     }
@@ -43,11 +41,11 @@ public class Role implements Serializable {
         this.name = name;
     }
 
-    public List<UserVersion> getUsers() {
-        return users;
+    public List<UserVersion> getUserVersions() {
+        return userVersions;
     }
 
-    public void setUsers(List<UserVersion> users) {
-        this.users = users;
+    public void setUserVersions(List<UserVersion> users) {
+        this.userVersions = users;
     }
 }

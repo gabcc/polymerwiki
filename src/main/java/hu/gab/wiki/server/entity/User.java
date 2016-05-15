@@ -1,5 +1,6 @@
 package hu.gab.wiki.server.entity;
 
+import hu.gab.wiki.shared.status.UserStatus;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.CascadeType;
 
@@ -18,7 +19,7 @@ import java.util.List;
 @Entity
 public class User implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue
     private long id;
 
     @Column(name = "NAME")
@@ -32,6 +33,9 @@ public class User implements Serializable {
 
     @Column(name = "CREATED")
     private Date created;
+
+    @Enumerated(EnumType.ORDINAL)
+    private UserStatus status;
 
     @OneToMany(mappedBy = "user")
     @Cascade(CascadeType.ALL)
@@ -86,5 +90,13 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public UserStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(UserStatus status) {
+        this.status = status;
     }
 }

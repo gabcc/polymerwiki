@@ -1,5 +1,7 @@
 package hu.gab.wiki.server.entity;
 
+import hu.gab.wiki.shared.status.ContentStatus;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ import java.util.List;
 public class Article implements Serializable {
 
     @Id
+    @GeneratedValue
     private long id;
 
     @Column(name = "SLUG", unique = true)

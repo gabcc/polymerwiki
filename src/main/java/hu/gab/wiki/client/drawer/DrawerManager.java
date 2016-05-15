@@ -2,6 +2,8 @@ package hu.gab.wiki.client.drawer;
 
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
+import hu.gab.wiki.client.AppUtils;
+import hu.gab.wiki.client.events.OnLogin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,5 +29,18 @@ public class DrawerManager {
         if (drawerPanel == null) throw new RuntimeException("Null parameter: drawerPanel");
 
         this.drawerPanel = drawerPanel;
+    }
+
+    public void initEventHandlers(){
+        addEventHandlers();
+    }
+
+    private void addEventHandlers(){;
+        AppUtils.getClientFactory().getEventBus().addHandler(OnLogin.TYPE, new OnLogin.OnLoginHandler() {
+            @Override
+            public void onOnLogin(OnLogin event) {
+                new DrawerMenuFiller().fillMenu();
+            }
+        });
     }
 }
