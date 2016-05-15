@@ -2,8 +2,8 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:paper='urn:import:com.vaadin.polymer.paper.widget'>
     <g:HTMLPanel ui:field="wrapper">
-        <paper:PaperDrawerPanel ui:field="drawerPanel" forceNarrow="true">
-            <div drawer="">
+        <paper:PaperDrawerPanel ui:field="drawerPanel" forceNarrow="true" disableSwipe="true">
+            <div drawer="" >
                 <g:HTMLPanel addStyleNames="layout vertical" ui:field="drawerContainer">
                 </g:HTMLPanel>
             </div>
@@ -11,7 +11,7 @@
             <div main="">
                 <paper:PaperHeaderPanel>
                     <paper:PaperToolbar>
-                        <paper:PaperIconButton ui:field="buttonDrawer" icon="menu"/>
+                        <paper:PaperIconButton ui:field="buttonDrawer" icon="menu" visible="true"/>
                         <g:HTMLPanel ui:field="menu">
                             <paper:PaperButton ui:field="buttonHome" addStyleNames="menubutton">Home</paper:PaperButton>
                             <paper:PaperButton ui:field="buttonAbout" addStyleNames="menubutton">About</paper:PaperButton>
@@ -23,7 +23,17 @@
                     </paper:PaperToolbar>
 
                     <div>
-                        <g:SimplePanel ui:field="contentContainer"></g:SimplePanel>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    Ide jönnek majd az article linkek.
+                                </div>
+
+                                <div class="col-md-9">
+                                    <g:SimplePanel ui:field="contentContainer"></g:SimplePanel>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </paper:PaperHeaderPanel>
             </div>

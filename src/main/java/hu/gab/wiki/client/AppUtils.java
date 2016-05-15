@@ -27,9 +27,11 @@ public class AppUtils {
 
     private static boolean initted = false;
 
-    public static void init(ClientFactory clientFactory) {
+    public static void setClientFactory(ClientFactory clientFactory) {
         AppUtils.clientFactory = clientFactory;
+    }
 
+    public static void init() {
         spinnerContainer = new SimplePanel();
         spinner = new PaperSpinner("Loading...");
 

@@ -7,6 +7,7 @@ import hu.gab.wiki.client.AppUtils;
 import hu.gab.wiki.client.WikiService;
 import hu.gab.wiki.client.admin.user.widget.UserAdder;
 import hu.gab.wiki.client.admin.user.widget.UserModifier;
+import hu.gab.wiki.shared.FrontRole;
 import hu.gab.wiki.client.helper.CommonWikiAsyncHandler;
 import hu.gab.wiki.client.helper.UserAdminHelper;
 import hu.gab.wiki.client.ioc.ClientFactory;
@@ -14,6 +15,7 @@ import hu.gab.wiki.client.mvp.WikiActivity;
 import hu.gab.wiki.shared.dto.useradmin.DTO_Role;
 import hu.gab.wiki.shared.dto.useradmin.DTO_User;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**

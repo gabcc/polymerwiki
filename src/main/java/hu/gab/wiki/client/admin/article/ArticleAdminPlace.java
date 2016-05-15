@@ -1,4 +1,4 @@
-package hu.gab.wiki.client.admin.user;
+package hu.gab.wiki.client.admin.article;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
@@ -11,9 +11,9 @@ import java.util.List;
 
 /**
  * @author PG
- * @since 2016-05-12
+ * @since 2016-05-15
  */
-public class UserAdminPlace extends Place implements WikiPlace {
+public class ArticleAdminPlace extends Place implements WikiPlace {
     @Override
     public List<String> getRequiredRoles() {
         return Arrays.asList(
@@ -21,16 +21,16 @@ public class UserAdminPlace extends Place implements WikiPlace {
         );
     }
 
-    @Prefix("UserAdmin")
-    public static class Tokenizer implements PlaceTokenizer<UserAdminPlace> {
+    @Prefix("ArticleAdmin")
+    public static class Tokenizer implements PlaceTokenizer<ArticleAdminPlace> {
 
         @Override
-        public UserAdminPlace getPlace(String token) {
-            return new UserAdminPlace();
+        public ArticleAdminPlace getPlace(String token) {
+            return new ArticleAdminPlace();
         }
 
         @Override
-        public String getToken(UserAdminPlace place) {
+        public String getToken(ArticleAdminPlace place) {
             return "";
         }
     }

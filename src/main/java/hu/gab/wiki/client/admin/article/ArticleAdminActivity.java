@@ -1,21 +1,16 @@
-package hu.gab.wiki.client.front.home;
+package hu.gab.wiki.client.admin.article;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import hu.gab.wiki.shared.FrontRole;
 import hu.gab.wiki.client.ioc.ClientFactory;
 import hu.gab.wiki.client.mvp.WikiActivity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author PG
- * @since 2016-04-30
+ * @since 2016-05-15
  */
-public class HomeActivity extends WikiActivity<IHomeView> implements HomePresenter {
-
-    public HomeActivity(ClientFactory clientFactory, IHomeView view) {
+public class ArticleAdminActivity extends WikiActivity<IArticleAdminView> implements ArticleAdminPresenter {
+    public ArticleAdminActivity(ClientFactory clientFactory, IArticleAdminView view) {
         super(clientFactory, view);
     }
 
@@ -23,5 +18,4 @@ public class HomeActivity extends WikiActivity<IHomeView> implements HomePresent
     public void afterStart(AcceptsOneWidget panel, EventBus eventBus) {
 
     }
-
 }

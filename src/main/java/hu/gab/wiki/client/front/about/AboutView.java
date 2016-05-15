@@ -21,26 +21,9 @@ public class AboutView extends WikiView<AboutPresenter> implements IAboutView {
     interface AboutViewUiBinder extends UiBinder<Widget, AboutView> {
     }
 
-    @UiField
-    PaperButton button;
-
-    @UiField
-    PaperInput name;
-
     private static AboutViewUiBinder ourUiBinder = GWT.create(AboutViewUiBinder.class);
 
     public AboutView() {
         initWidget(ourUiBinder.createAndBindUi(this));
-
-        addEventHanlders();
-    }
-
-    private void addEventHanlders(){
-        button.addClickHandler(event -> {
-            String name = this.name.getValue();
-            if(name.length() > 0){
-                activity.addNewUser(name);
-            }
-        });
     }
 }

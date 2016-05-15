@@ -35,9 +35,9 @@ public class UserServiceTest {
         final String email = "asdasdasdasdasda@asdasdasdsad3.com";
         final String password = "psd001";
 
-        final String passwordHash = UserService.createHash(password);
+        final String passwordHash = UserService.instance.createHash(password);
 
-        User savedUser = UserService.addNewUser(name, email, password);
+        User savedUser = UserService.instance.addNewUser(name, email, password);
         deletable.add(savedUser);
 
         if (!savedUser.getName().equals(name)) throw new RuntimeException("Nem egyezik a 2 objektum");
@@ -54,7 +54,7 @@ public class UserServiceTest {
         String emailOld = "emailOld@email.old";
         String passwordOld = "pwOld";
 
-        final User user = UserService.addNewUser(nameOld, emailOld, UserService.createHash(passwordOld));
+        final User user = UserService.instance.addNewUser(nameOld, emailOld, UserService.instance.createHash(passwordOld));
         deletable.add(user);
 
         DTO_User updatedUserDto = new DTO_User();
@@ -63,7 +63,7 @@ public class UserServiceTest {
         updatedUserDto.setName(nameOld + "new");
         updatedUserDto.setPassword("newPassword");
 
-        UserService.updateUser(updatedUserDto);
+        UserService.instance.updateUser(updatedUserDto);
 
         User felolvasott = new DBTemplate<User>((session, template) -> {
             session.clear();
@@ -73,7 +73,7 @@ public class UserServiceTest {
         if (!felolvasott.getName().equals(nameOld + "new")) throw new RuntimeException("Nem ment le az update");
         if (!felolvasott.getEmail().equals(emailOld + "new")) throw new RuntimeException("Nem ment le az update");
 
-        String pwHash = UserService.createHash("newPassword");
+        String pwHash = UserService.instance.createHash("newPassword");
 
         if (!felolvasott.getPasswordHash().equals(pwHash)) throw new RuntimeException("Nem ment le az update");
     }

@@ -48,4 +48,10 @@
   padding: 10px;
   background: #fff; }
 
+.drawer-header-label {
+  padding-left: 10px;
+  font-weight: bold;
+  color: #388E3C;
+  border-bottom: #8BC34A 1px solid; }
+
 /*# sourceMappingURL=wiki.css.map */

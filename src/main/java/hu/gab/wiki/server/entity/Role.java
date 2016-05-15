@@ -16,10 +16,10 @@ public class Role implements Serializable {
     @GeneratedValue
     private long id;
 
-    @Column(name = "NAME")
+    @Column(name = "NAME", unique = true)
     private String name;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "roles")
     private List<UserVersion> userVersions = new ArrayList<>();
 
     public Role() {

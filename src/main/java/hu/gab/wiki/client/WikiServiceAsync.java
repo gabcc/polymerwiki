@@ -1,6 +1,7 @@
 package hu.gab.wiki.client;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import hu.gab.wiki.shared.dto.DTO_LoginData;
 import hu.gab.wiki.shared.dto.DTO_Token;
 import hu.gab.wiki.shared.dto.useradmin.DTO_Role;
 import hu.gab.wiki.shared.dto.useradmin.DTO_User;
@@ -20,5 +21,5 @@ public interface WikiServiceAsync {
 
     void updateUser(DTO_User user, AsyncCallback<Void> async);
 
-    void login(String email, String password, AsyncCallback<DTO_Token> async);
+    void login(String email, String password, AsyncCallback<DTO_LoginData> async);
 }

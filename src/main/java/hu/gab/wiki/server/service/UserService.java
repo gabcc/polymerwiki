@@ -5,13 +5,10 @@ import hu.gab.wiki.server.dal.DBTemplate;
 import hu.gab.wiki.server.dal.TransactionDBTemplate;
 import hu.gab.wiki.server.dao.DAO_Role;
 import hu.gab.wiki.server.dao.DAO_User;
-import hu.gab.wiki.server.dao.DAO_UserToken;
 import hu.gab.wiki.server.dao.DAO_UserVersion;
 import hu.gab.wiki.server.entity.Role;
 import hu.gab.wiki.server.entity.User;
-import hu.gab.wiki.server.entity.UserToken;
 import hu.gab.wiki.server.entity.UserVersion;
-import hu.gab.wiki.shared.dto.DTO_Token;
 import hu.gab.wiki.shared.dto.useradmin.DTO_Role;
 import hu.gab.wiki.shared.dto.useradmin.DTO_User;
 import hu.gab.wiki.shared.status.UserStatus;
@@ -27,17 +24,19 @@ import java.util.stream.Collectors;
  * @since 2016-05-11
  */
 public class UserService {
-    private static SecureRandom rnd = new SecureRandom();
+    public static final UserService instance = new UserService();
 
-    public static String createHash(String password) {
+    private SecureRandom rnd = new SecureRandom();
+
+    public String createHash(String password) {
         return password;
     }
 
-    public static String createToken(){
+    public String createToken() {
         return new BigInteger(130, rnd).toString(32);
     }
 
-    public static User addNewUser(final String name, final String email, final String password) {
+    public User addNewUser(final String name, final String email, final String password) {
         User result = new DBTemplate<User>((session, template) -> {
             new TransactionDBTemplate<User>(session, (session1, transactionDBTemplate) -> {
                 User userByMail = DAO_User.findByEmail(session, email);
@@ -67,7 +66,7 @@ public class UserService {
         return result;
     }
 
-    public static void updateUser(final DTO_User user) {
+    public void updateUser(final DTO_User user) {
         new DBTemplate<Void>((session, template) -> {
             new TransactionDBTemplate<Void>(session, (session1, transactionDBTemplate) -> {
                 User oldUser = DAO_User.get(session1, user.getId());
@@ -77,7 +76,7 @@ public class UserService {
                 oldUser.setEmail(user.getEmail());
 
                 if (user.getPassword() != null && !user.getPassword().equals("")) {
-                    oldUser.setPasswordHash(UserService.createHash(user.getPassword()));
+                    oldUser.setPasswordHash(createHash(user.getPassword()));
                 }
 
                 UserVersion userVersion = new UserVersion();
@@ -93,32 +92,10 @@ public class UserService {
         });
     }
 
-    public static List<DTO_Role> getRoles() {
+    public List<DTO_Role> getRoles() {
         return new DBTemplate<List<DTO_Role>>((session, template) -> {
             List<Role> list = DAO_Role.list(session);
             template.setResult(list.stream().map(DTO.instance::dto).collect(Collectors.toList()));
         }).getResult();
-    }
-
-    public static DTO_Token login(String email, String password){
-        DTO_Token resultToken = new DBTemplate<DTO_Token>((session, template) -> {
-            new TransactionDBTemplate<DTO_Token>(session, (session1, transactionDBTemplate) -> {
-                User byEmail = DAO_User.findByEmail(session1, email);
-                if (byEmail == null) {
-                    throw new RuntimeException("Hibás email cím vagy jelszó");
-                }
-
-                String hash = createHash(password);
-                if (hash.equals(byEmail.getPasswordHash())) {
-                    DAO_UserToken.clearPrevious(session1, byEmail);
-                    UserToken token = DAO_UserToken.createToken(session1, byEmail);
-                    template.setResult(DTO.instance.dto(token));
-                } else {
-                    throw new RuntimeException("Hibás email cím vagy jelszó");
-                }
-            });
-        }).getResult();
-
-        return resultToken;
     }
 }

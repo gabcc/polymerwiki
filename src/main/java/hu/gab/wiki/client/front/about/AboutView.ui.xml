@@ -2,9 +2,16 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:paper='urn:import:com.vaadin.polymer.paper.widget'>
     <g:HTMLPanel>
-        <g:HTMLPanel addStyleNames="w-panel-small">
-            <paper:PaperButton ui:field="button">Add user with name</paper:PaperButton>
-            <paper:PaperInput ui:field="name" placeholder="Név"></paper:PaperInput>
+        <g:HTMLPanel>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>Polymer and bootstrap based wiki/cms project, built on GWT.</p>
+                        <p>License - GPLv 3.0</p>
+                        <p>Author - Gábor Percze</p>
+                    </div>
+                </div>
+            </div>
         </g:HTMLPanel>
     </g:HTMLPanel>
 </ui:UiBinder>

@@ -12,12 +12,16 @@ import com.google.web.bindery.event.shared.EventBus;
 import com.vaadin.polymer.Polymer;
 import hu.gab.wiki.client.drawer.DrawerManager;
 import hu.gab.wiki.client.drawer.DrawerMenuFiller;
+import hu.gab.wiki.client.events.OnLogin;
 import hu.gab.wiki.client.front.home.HomePlace;
+import hu.gab.wiki.client.helper.CommonWikiAsyncHandler;
 import hu.gab.wiki.client.ioc.ActivityMapper;
 import hu.gab.wiki.client.ioc.ClientFactory;
 import hu.gab.wiki.client.ioc.ClientFactoryImpl;
 import hu.gab.wiki.client.ioc.PlaceHistoryMapper;
+import hu.gab.wiki.client.store.ClientStore;
 import hu.gab.wiki.client.wrapper.MainWrapper;
+import hu.gab.wiki.shared.dto.DTO_LoginData;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -35,12 +39,13 @@ public class root implements EntryPoint {
     public void onModuleLoad() {
         clientFactory = GWT.create(ClientFactory.class);
         loadPolymerDependencies();
+        AppUtils.setClientFactory(clientFactory);
 
         SimplePanel webAppContaier = new SimplePanel();
         MainWrapper mainWrapper = new MainWrapper(clientFactory);
 
         drawerManager = new DrawerManager(mainWrapper.getDrawerContainer());
-        ((ClientFactoryImpl)clientFactory).setDrawerManager(drawerManager);
+        ((ClientFactoryImpl) clientFactory).setDrawerManager(drawerManager);
 
         webAppContaier.add(mainWrapper);
         RootPanel.get().add(webAppContaier);
@@ -65,7 +70,7 @@ public class root implements EntryPoint {
         placeHistoryHandler.handleCurrentHistory();
     }
 
-    private void loadPolymerDependencies(){
+    private void loadPolymerDependencies() {
         Polymer.importHref("iron-icons/iron-icons.html");
         Polymer.importHref("iron-flex-layout/iron-flex-layout.html");
 
@@ -78,8 +83,24 @@ public class root implements EntryPoint {
         Polymer.importHref("paper-toast/paper-toast.html");
     }
 
-    private void afterLoad(){
-        AppUtils.init(clientFactory);
+    private void afterLoad() {
+        AppUtils.init();
         drawerManager.initEventHandlers();
+
+        new DrawerMenuFiller().fillVisitorMenu();
+
+        AppUtils.showLoadingSpinner();
+        WikiService.App.getInstance().login("g.percze@gmail.com", "123456", new CommonWikiAsyncHandler<DTO_LoginData>() {
+            @Override
+            public void onSuccess(DTO_LoginData result) {
+                AppUtils.hideLoadingSpinner();
+
+                ClientStore clientStore = AppUtils.getClientFactory().getClientStore();
+                clientStore.setUser(result.getUser());
+                clientStore.setToken(result.getToken());
+
+                AppUtils.getClientFactory().getEventBus().fireEvent(new OnLogin());
+            }
+        });
     }
 }

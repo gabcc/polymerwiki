@@ -109,12 +109,17 @@ public class MainWrapper extends Composite {
         eventBus.addHandler(OnLogin.TYPE, new OnLogin.OnLoginHandler() {
             @Override
             public void onOnLogin(OnLogin event) {
-                DTO_User user = clientFactory.getClientStore().getUser();
-                loggedInUserContainer.setText(user.getEmail());
-
-                loggedInUserContainer.setVisible(true);
+                onLogin();
             }
         });
+    }
+
+    private void onLogin() {
+        DTO_User user = clientFactory.getClientStore().getUser();
+        loggedInUserContainer.setText(user.getEmail());
+        loggedInUserContainer.setVisible(true);
+
+        buttonDrawer.setVisible(true);
     }
 
     private void setMenuActive(PaperButton paperButton) {

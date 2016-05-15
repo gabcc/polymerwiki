@@ -1,5 +1,6 @@
 package hu.gab.wiki.server.exp;
 
+import hu.gab.wiki.server.DTO;
 import hu.gab.wiki.server.dal.DBTemplate;
 import hu.gab.wiki.server.dal.TransactionDBTemplate;
 import hu.gab.wiki.server.dao.DAO_Environment;
@@ -7,10 +8,15 @@ import hu.gab.wiki.server.dao.DAO_Role;
 import hu.gab.wiki.server.entity.Environment;
 import hu.gab.wiki.server.entity.Role;
 import hu.gab.wiki.server.entity.User;
+import hu.gab.wiki.server.entity.UserVersion;
 import hu.gab.wiki.server.service.UserService;
+import hu.gab.wiki.shared.dto.useradmin.DTO_Role;
+import hu.gab.wiki.shared.dto.useradmin.DTO_User;
+import hu.gab.wiki.shared.status.UserStatus;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author PG
@@ -25,6 +31,7 @@ public class DBCreator {
 
         createRoles();
         createEnvironments();
+        createDefaultAdmins();
     }
 
     private static void createDb() {
@@ -36,13 +43,13 @@ public class DBCreator {
 
     private static void createRoles() {
         final Role admin = new Role();
-        admin.setName("admin");
+        admin.setName("ADMIN");
 
         final Role editor = new Role();
-        editor.setName("editor");
+        editor.setName("EDITOR");
 
         final Role visitor = new Role();
-        visitor.setName("visitor");
+        visitor.setName("VISITOR");
 
         new DBTemplate<Void>((session, template) -> {
             new TransactionDBTemplate<Void>(session, (session1, transactionDBTemplate) -> {
@@ -68,11 +75,27 @@ public class DBCreator {
         });
     }
 
+    private static void createDefaultAdmins(){
+        User user = UserService.instance.addNewUser("Percze Gábor", "g.percze@gmail.com", "123456");
+        DTO_User dto_user = new DTO_User();
+        dto_user.setEmail(user.getEmail());
+        dto_user.setId(user.getId());
+        dto_user.setName(user.getName());
+        dto_user.setStatus(UserStatus.ACTIVE);
+
+        List<DTO_Role> result = new DBTemplate<List<DTO_Role>>((session, template) -> {
+            template.setResult(DAO_Role.list(session).stream().map(DTO.instance::dto).collect(Collectors.toList()));
+        }).getResult();
+        dto_user.setRoles(result);
+
+        UserService.instance.updateUser(dto_user);
+    }
+
     private static void createUser() {
         final User user = new User();
         user.setName("user1");
         user.setEmail("user1@asdsad.com");
-        user.setPasswordHash(UserService.createHash("user1"));
+        user.setPasswordHash(UserService.instance.createHash("user1"));
         user.setCreated(new Date());
 
         new DBTemplate<Void>((session, template) -> {

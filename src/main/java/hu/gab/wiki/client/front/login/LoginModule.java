@@ -8,11 +8,9 @@ import hu.gab.wiki.client.AppUtils;
 import hu.gab.wiki.client.WikiService;
 import hu.gab.wiki.client.events.OnLogin;
 import hu.gab.wiki.client.helper.CommonWikiAsyncHandler;
-import hu.gab.wiki.client.ioc.ClientFactory;
 import hu.gab.wiki.client.store.ClientStore;
 import hu.gab.wiki.client.widgets.BootstrapModal;
-import hu.gab.wiki.shared.dto.DTO_Token;
-import hu.gab.wiki.shared.dto.useradmin.DTO_User;
+import hu.gab.wiki.shared.dto.DTO_LoginData;
 
 /**
  * @author PG
@@ -67,19 +65,18 @@ public class LoginModule {
         String password = inputPassword.getValue();
 
         AppUtils.showLoadingSpinner();
-        WikiService.App.getInstance().login(email, password, new CommonWikiAsyncHandler<DTO_Token>() {
+
+        WikiService.App.getInstance().login(email, password, new CommonWikiAsyncHandler<DTO_LoginData>() {
             @Override
-            public void onSuccess(DTO_Token result) {
+            public void onSuccess(DTO_LoginData result) {
                 ClientStore clientStore = AppUtils.getClientFactory().getClientStore();
-                clientStore.setToken(result);
 
-                DTO_User dto_user = new DTO_User();
-                dto_user.setEmail(email);
-                dto_user.setPassword(password);
-                clientStore.setUser(dto_user);
+                clientStore.setToken(result.getToken());
+                clientStore.setUser(result.getUser());
 
+                bootstrapModal.hide();
                 AppUtils.hideLoadingSpinner();
-                AppUtils.showToast(0, "Sikeres login: token -> " + result.getToken(), false);
+                AppUtils.showToast(0, "Sikeres bejelentkezés", false);
 
                 AppUtils.getClientFactory().getEventBus().fireEvent(new OnLogin());
             }

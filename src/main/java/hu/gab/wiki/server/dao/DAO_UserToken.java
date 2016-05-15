@@ -32,7 +32,7 @@ public class DAO_UserToken {
         userToken.setLastAction(new Date());
         userToken.setUser(user);
 
-        String token = UserService.createToken();
+        String token = UserService.instance.createToken();
         userToken.setToken(token);
 
         session.save(userToken);
