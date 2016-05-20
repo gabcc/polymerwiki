@@ -1,10 +1,8 @@
 package hu.gab.wiki.server;
 
-import hu.gab.wiki.server.entity.Role;
-import hu.gab.wiki.server.entity.User;
-import hu.gab.wiki.server.entity.UserToken;
-import hu.gab.wiki.server.entity.UserVersion;
+import hu.gab.wiki.server.entity.*;
 import hu.gab.wiki.shared.dto.DTO_Token;
+import hu.gab.wiki.shared.dto.articleadmin.DTO_ArticleSummary;
 import hu.gab.wiki.shared.dto.useradmin.DTO_Role;
 import hu.gab.wiki.shared.dto.useradmin.DTO_User;
 
@@ -55,6 +53,19 @@ public class DTO {
         dto_token.setToken(token.getToken());
 
         return dto_token;
+    }
+
+    public DTO_ArticleSummary dtoArticleSummary(ArticleVersion articleVersion){
+        long id = articleVersion.getArticle().getId();
+        String name = articleVersion.getName();
+        String slug = articleVersion.getArticle().getSlug();
+
+        DTO_ArticleSummary dto_articleSummary = new DTO_ArticleSummary();
+        dto_articleSummary.setId(id);
+        dto_articleSummary.setSlug(slug);
+        dto_articleSummary.setCurrentName(name);
+
+        return dto_articleSummary;
     }
 
 

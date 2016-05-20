@@ -54,4 +54,10 @@
   color: #388E3C;
   border-bottom: #8BC34A 1px solid; }
 
+.w-left-link-sidebar {
+  border-right: 1px solid #388E3C;
+  border-bottom: 1px solid #388E3C;
+  border-bottom-right-radius: 5px;
+  paddin-bottom: 10px; }
+
 /*# sourceMappingURL=wiki.css.map */

@@ -1,10 +1,19 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:paper='urn:import:com.vaadin.polymer.paper.widget'>
     <g:HTMLPanel>
         <div class="container">
             <div class="row w-row">
                 <div class="col-md-12">
-                    megy az admin
+                    <g:HTMLPanel>
+                        <paper:PaperButton addStyleNames="w-btn-primary" ui:field="buttonAddNewArticle">Add new article</paper:PaperButton>
+                    </g:HTMLPanel>
+                </div>
+            </div>
+
+            <div class="row w-row">
+                <div class="col-md-12">
+                    <g:HTMLPanel ui:field="tableContainer"></g:HTMLPanel>
                 </div>
             </div>
         </div>

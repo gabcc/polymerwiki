@@ -1,10 +1,10 @@
 package hu.gab.wiki.client;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
-import com.google.gwt.core.client.GWT;
 import hu.gab.wiki.shared.dto.DTO_LoginData;
-import hu.gab.wiki.shared.dto.DTO_Token;
+import hu.gab.wiki.shared.dto.articleadmin.DTO_ArticleSummary;
 import hu.gab.wiki.shared.dto.useradmin.DTO_Role;
 import hu.gab.wiki.shared.dto.useradmin.DTO_User;
 import hu.gab.wiki.shared.exceptions.CommonWikiException;
@@ -29,13 +29,17 @@ public interface WikiService extends RemoteService {
         }
     }
 
-    List<DTO_User> listUsers();
+    List<DTO_User> listUsers(DTO_LoginData authData);
 
-    void addNewUser(String name, String email, String password) throws CommonWikiException;
+    void addNewUser(DTO_LoginData authData, String name, String email, String password) throws CommonWikiException;
 
-    void updateUser(DTO_User user) throws CommonWikiException;
+    void updateUser(DTO_LoginData authData, DTO_User user) throws CommonWikiException;
 
-    List<DTO_Role> getRoles();
+    List<DTO_Role> getRoles(DTO_LoginData authData);
 
     DTO_LoginData login(String email, String password) throws CommonWikiException;
+
+    List<DTO_ArticleSummary> listArticleSummaries();
+
+    void addArticle(DTO_LoginData authData, DTO_ArticleSummary articleSummary);
 }

@@ -37,7 +37,7 @@ public class User implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     private UserStatus status;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
     @Cascade(CascadeType.ALL)
     private List<UserVersion> versions = new ArrayList<>();
 

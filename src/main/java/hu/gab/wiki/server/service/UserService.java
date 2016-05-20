@@ -24,8 +24,6 @@ import java.util.stream.Collectors;
  * @since 2016-05-11
  */
 public class UserService {
-    public static final UserService instance = new UserService();
-
     private SecureRandom rnd = new SecureRandom();
 
     public String createHash(String password) {
@@ -66,9 +64,9 @@ public class UserService {
         return result;
     }
 
-    public void updateUser(final DTO_User user) {
-        new DBTemplate<Void>((session, template) -> {
-            new TransactionDBTemplate<Void>(session, (session1, transactionDBTemplate) -> {
+    public User updateUser(final DTO_User user) {
+        User result = new DBTemplate<User>((session, template) -> {
+            new TransactionDBTemplate<User>(session, (session1, transactionDBTemplate) -> {
                 User oldUser = DAO_User.get(session1, user.getId());
                 if (oldUser == null) throw new RuntimeException("Nincs ilyen id-val rendelkező user.");
 
@@ -86,10 +84,16 @@ public class UserService {
                 List<Role> newRoles = DAO_Role.list(session1, user.getRoles().stream().map(p -> p.getId()).collect(Collectors.toSet()));
                 userVersion.setRoles(newRoles);
 
+                oldUser.getVersions().add(userVersion);
+
                 DAO_User.update(session1, oldUser);
                 DAO_UserVersion.add(session1, userVersion);
+
+                template.setResult(oldUser);
             });
-        });
+        }).getResult();
+
+        return result;
     }
 
     public List<DTO_Role> getRoles() {

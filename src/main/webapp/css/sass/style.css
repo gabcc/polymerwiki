@@ -1,9 +1,40 @@
-.btn-primary {
+.w-btn-primary {
   color: #fff;
   background: #388E3C; }
 
-.btn-primary {
+.w-btn-secondary {
   color: #fff;
   background: #8BC34A; }
+
+.w-btn-error {
+  color: #fff;
+  background: #FF5252; }
+
+.w-row {
+  margin-bottom: 10px;
+  margin-top: 10px; }
+
+.w-error-icon {
+  color: #FF5252; }
+
+.logged-in-user-container {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  color: #388E3C;
+  padding: 10px;
+  background: #fff; }
+
+.drawer-header-label {
+  padding-left: 10px;
+  font-weight: bold;
+  color: #388E3C;
+  border-bottom: #8BC34A 1px solid; }
+
+.w-left-link-sidebar {
+  border-right: 1px solid #388E3C;
+  border-bottom: 1px solid #388E3C;
+  border-bottom-right-radius: 5px;
+  paddin-bottom: 10px; }
 
 /*# sourceMappingURL=style.css.map */

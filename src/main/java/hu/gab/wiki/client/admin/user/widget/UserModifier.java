@@ -1,6 +1,5 @@
 package hu.gab.wiki.client.admin.user.widget;
 
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.vaadin.polymer.paper.widget.PaperInput;
@@ -75,7 +74,7 @@ public class UserModifier implements UserAdminPresenter.NeedsRoleList, SaveableB
         return inputPassword.getValue();
     }
 
-    public DTO_User createModifiedUser(){
+    public DTO_User createModifiedUser() {
         DTO_User dto_user = new DTO_User();
         dto_user.setId(user.getId());
 
@@ -83,7 +82,7 @@ public class UserModifier implements UserAdminPresenter.NeedsRoleList, SaveableB
         dto_user.setEmail(getUserEmail());
 
         String password = getUserPassword();
-        if(!password.equals("")){
+        if (!password.equals("")) {
             dto_user.setPassword(password);
         }
 
@@ -96,7 +95,7 @@ public class UserModifier implements UserAdminPresenter.NeedsRoleList, SaveableB
         List<DTO_Role> activeRoles = new ArrayList<>();
 
         for (Map.Entry<DTO_Role, PaperRadioButton> entry : rolePaperRadioButtonMap.entrySet()) {
-            if(entry.getValue().getActive()){
+            if (entry.getValue().getActive()) {
                 activeRoles.add(entry.getKey());
             }
         }

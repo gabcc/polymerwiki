@@ -7,7 +7,6 @@ import hu.gab.wiki.client.AppUtils;
 import hu.gab.wiki.client.WikiService;
 import hu.gab.wiki.client.admin.user.widget.UserAdder;
 import hu.gab.wiki.client.admin.user.widget.UserModifier;
-import hu.gab.wiki.shared.FrontRole;
 import hu.gab.wiki.client.helper.CommonWikiAsyncHandler;
 import hu.gab.wiki.client.helper.UserAdminHelper;
 import hu.gab.wiki.client.ioc.ClientFactory;
@@ -15,7 +14,6 @@ import hu.gab.wiki.client.mvp.WikiActivity;
 import hu.gab.wiki.shared.dto.useradmin.DTO_Role;
 import hu.gab.wiki.shared.dto.useradmin.DTO_User;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -33,7 +31,7 @@ public class UserAdminActivity extends WikiActivity<IUserAdminView> implements U
 
     @Override
     public void refreshUserList() {
-        WikiService.App.getInstance().listUsers(new AsyncCallback<List<DTO_User>>() {
+        WikiService.App.getInstance().listUsers(AppUtils.getAuthData(), new AsyncCallback<List<DTO_User>>() {
             @Override
             public void onFailure(Throwable caught) {
                 caught.printStackTrace();
@@ -67,7 +65,7 @@ public class UserAdminActivity extends WikiActivity<IUserAdminView> implements U
             String email = caller.getInputEmail().getValue();
             String password = caller.getInputPassword().getValue();
 
-            WikiService.App.getInstance().addNewUser(name, email, password, new AsyncCallback<Void>() {
+            WikiService.App.getInstance().addNewUser(AppUtils.getAuthData(), name, email, password, new AsyncCallback<Void>() {
                 @Override
                 public void onSuccess(Void result) {
                     caller.hide();
@@ -92,24 +90,24 @@ public class UserAdminActivity extends WikiActivity<IUserAdminView> implements U
     public void onUserSave(UserModifier modifier) {
         boolean valid = true;
 
-        if(!UserAdminHelper.validateName(modifier.getInputName())){
+        if (!UserAdminHelper.validateName(modifier.getInputName())) {
             valid = false;
         }
 
-        if(!UserAdminHelper.validateEmail(modifier.getInputEmail())){
+        if (!UserAdminHelper.validateEmail(modifier.getInputEmail())) {
             valid = false;
         }
 
-        if(!modifier.getUserPassword().equals("")){
-            if(!UserAdminHelper.validatePassword(modifier.getInputPassword())){
+        if (!modifier.getUserPassword().equals("")) {
+            if (!UserAdminHelper.validatePassword(modifier.getInputPassword())) {
                 valid = false;
             }
         }
 
-        if(valid){
+        if (valid) {
             DTO_User modifiedUser = modifier.createModifiedUser();
             AppUtils.showLoadingSpinner();
-            WikiService.App.getInstance().updateUser(modifiedUser, new CommonWikiAsyncHandler<Void>() {
+            WikiService.App.getInstance().updateUser(AppUtils.getAuthData(), modifiedUser, new CommonWikiAsyncHandler<Void>() {
                 @Override
                 public void onSuccess(Void result) {
                     view.clearUserList();
@@ -127,7 +125,7 @@ public class UserAdminActivity extends WikiActivity<IUserAdminView> implements U
     public void getRoles(NeedsRoleList needsRoleList) {
         AppUtils.showLoadingSpinner();
 
-        WikiService.App.getInstance().getRoles(new AsyncCallback<List<DTO_Role>>() {
+        WikiService.App.getInstance().getRoles(AppUtils.getAuthData(), new AsyncCallback<List<DTO_Role>>() {
             @Override
             public void onFailure(Throwable caught) {
                 AppUtils.hideLoadingSpinner();

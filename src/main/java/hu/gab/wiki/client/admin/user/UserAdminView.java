@@ -38,10 +38,8 @@ public class UserAdminView extends WikiView<UserAdminPresenter> implements IUser
     @UiField
     PaperButton buttonAddNewUser;
 
-    @UiField
-    PaperButton buttonDisableSelected;
-
-    private SaveableBootstrapModal newUserModal;
+//    @UiField
+//    PaperButton buttonDisableSelected;
 
     private CellTable<DTO_User> cellTable = new CellTable<>();
 

@@ -32,10 +32,10 @@ public class Article implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     private ContentStatus status;
 
-    @OneToMany(mappedBy = "article")
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private List<ArticleVersion> versions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "article")
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
     public Article() {

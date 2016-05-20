@@ -7,6 +7,9 @@ import com.vaadin.polymer.iron.widget.IronIcon;
 import com.vaadin.polymer.paper.widget.PaperSpinner;
 import com.vaadin.polymer.paper.widget.PaperToast;
 import hu.gab.wiki.client.ioc.ClientFactory;
+import hu.gab.wiki.shared.dto.DTO_LoginData;
+import hu.gab.wiki.shared.dto.DTO_Token;
+import hu.gab.wiki.shared.dto.useradmin.DTO_User;
 
 import java.util.logging.Logger;
 
@@ -29,6 +32,19 @@ public class AppUtils {
 
     public static void setClientFactory(ClientFactory clientFactory) {
         AppUtils.clientFactory = clientFactory;
+    }
+
+    public static DTO_LoginData getAuthData() {
+        DTO_User user = clientFactory.getClientStore().getUser();
+        if (user == null) throw new RuntimeException("Nincs bejelentkezet user.");
+
+        DTO_Token token = clientFactory.getClientStore().getToken();
+        if (user == null) throw new RuntimeException("Nincs token.");
+
+        DTO_LoginData loginData = new DTO_LoginData();
+        loginData.setUser(user);
+        loginData.setToken(token);
+        return loginData;
     }
 
     public static void init() {
@@ -74,7 +90,6 @@ public class AppUtils {
     }
 
     /**
-     *
      * @param duration - ha 0, akkor alapon hagyjuk, különben ennyit fog várni
      * @param message
      */
@@ -88,12 +103,12 @@ public class AppUtils {
                 return;
             }
 
-            if(duration != 0){
+            if (duration != 0) {
                 toast.setDuration(duration);
             }
             toast.setText(message);
 
-            if(error){
+            if (error) {
                 toast.add(toastErrorIcon);
                 toastErrorIcon.setIcon("error");
             }

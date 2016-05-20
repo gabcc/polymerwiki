@@ -1,6 +1,6 @@
 {
 "version": 3,
-"mappings": "AAAA,WAAW;EACT,UAAU,EAAE,OAAO;EACnB,KAAK,EAAE,OAAO;;AAChB,kBAAkB;EAChB,UAAU,EAAE,OAAO",
+"mappings": "AAAA,WAAW;EACT,KAAK,EAAE,OAAO;;AAChB,kBAAkB;EAChB,UAAU,EAAE,OAAO",
 "sources": ["etc.sass"],
 "names": [],
 "file": "etc.css"

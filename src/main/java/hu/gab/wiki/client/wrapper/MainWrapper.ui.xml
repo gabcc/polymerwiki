@@ -25,11 +25,11 @@
                     <div>
                         <div class="container-fluid">
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-1 w-left-link-sidebar">
                                     Ide jönnek majd az article linkek.
                                 </div>
 
-                                <div class="col-md-9">
+                                <div class="col-md-11">
                                     <g:SimplePanel ui:field="contentContainer"></g:SimplePanel>
                                 </div>
                             </div>

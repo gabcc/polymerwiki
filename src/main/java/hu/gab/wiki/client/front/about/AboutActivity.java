@@ -2,12 +2,8 @@ package hu.gab.wiki.client.front.about;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import hu.gab.wiki.shared.FrontRole;
 import hu.gab.wiki.client.ioc.ClientFactory;
 import hu.gab.wiki.client.mvp.WikiActivity;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author PG

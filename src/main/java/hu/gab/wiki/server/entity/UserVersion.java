@@ -1,7 +1,5 @@
 package hu.gab.wiki.server.entity;
 
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,7 +18,6 @@ public class UserVersion implements Serializable {
     private long id;
 
     @ManyToOne
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private User user;
 
     @Column(name = "CREATED")

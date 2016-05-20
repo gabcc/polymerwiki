@@ -8,6 +8,7 @@
     <servlet-name>hu.gab.wiki.root WikiService</servlet-name>
     <servlet-class>hu.gab.wiki.server.WikiServiceImpl</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>hu.gab.wiki.root WikiService</servlet-name>
     <url-pattern>/root/WikiService</url-pattern>
@@ -17,5 +18,4 @@
   <welcome-file-list>
     <welcome-file>root.html</welcome-file>
   </welcome-file-list>
-
 </web-app>

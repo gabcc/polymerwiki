@@ -1,14 +1,14 @@
 package hu.gab.wiki.server.exp;
 
 import hu.gab.wiki.server.DTO;
+import hu.gab.wiki.server.ServerCLC;
 import hu.gab.wiki.server.dal.DBTemplate;
 import hu.gab.wiki.server.dal.TransactionDBTemplate;
 import hu.gab.wiki.server.dao.DAO_Environment;
 import hu.gab.wiki.server.dao.DAO_Role;
-import hu.gab.wiki.server.entity.Environment;
-import hu.gab.wiki.server.entity.Role;
-import hu.gab.wiki.server.entity.User;
-import hu.gab.wiki.server.entity.UserVersion;
+import hu.gab.wiki.server.entity.*;
+import hu.gab.wiki.server.ioc.Container;
+import hu.gab.wiki.server.service.AuthService;
 import hu.gab.wiki.server.service.UserService;
 import hu.gab.wiki.shared.dto.useradmin.DTO_Role;
 import hu.gab.wiki.shared.dto.useradmin.DTO_User;
@@ -23,7 +23,11 @@ import java.util.stream.Collectors;
  * @since 2016-05-12
  */
 public class DBCreator {
+    private static Container container;
+
     public static void main(String[] args) {
+        createContainer();
+
         createDb();
 //        testRead();
 
@@ -34,11 +38,16 @@ public class DBCreator {
         createDefaultAdmins();
     }
 
+    private static void createContainer(){
+        container = new Container();
+        container.init();
+    }
+
     private static void createDb() {
         new DBTemplate<Void>((session, template) -> {
 
         });
-        System.out.println("megy");
+        System.out.println("DB creation ended");
     }
 
     private static void createRoles() {
@@ -76,7 +85,7 @@ public class DBCreator {
     }
 
     private static void createDefaultAdmins(){
-        User user = UserService.instance.addNewUser("Percze Gábor", "g.percze@gmail.com", "123456");
+        User user = container.getUserService().addNewUser("Percze Gábor", "g.percze@gmail.com", "123456");
         DTO_User dto_user = new DTO_User();
         dto_user.setEmail(user.getEmail());
         dto_user.setId(user.getId());
@@ -88,14 +97,19 @@ public class DBCreator {
         }).getResult();
         dto_user.setRoles(result);
 
-        UserService.instance.updateUser(dto_user);
+        container.getUserService().updateUser(dto_user);
+    }
+
+    private static void createDefaultCategories(){
+        Category category = new Category();
+
     }
 
     private static void createUser() {
         final User user = new User();
         user.setName("user1");
         user.setEmail("user1@asdsad.com");
-        user.setPasswordHash(UserService.instance.createHash("user1"));
+        user.setPasswordHash(container.getUserService().createHash("user1"));
         user.setCreated(new Date());
 
         new DBTemplate<Void>((session, template) -> {

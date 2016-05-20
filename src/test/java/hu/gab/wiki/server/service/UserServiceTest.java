@@ -1,5 +1,6 @@
 package hu.gab.wiki.server.service;
 
+import hu.gab.wiki.BaseServerTest;
 import hu.gab.wiki.server.dal.DBTemplate;
 import hu.gab.wiki.server.dao.DAO_User;
 import hu.gab.wiki.server.entity.User;
@@ -14,7 +15,7 @@ import java.util.List;
  * @author PG
  * @since 2016-05-15
  */
-public class UserServiceTest {
+public class UserServiceTest extends BaseServerTest{
 
     private List<User> deletable = new ArrayList<>();
 
@@ -35,9 +36,9 @@ public class UserServiceTest {
         final String email = "asdasdasdasdasda@asdasdasdsad3.com";
         final String password = "psd001";
 
-        final String passwordHash = UserService.instance.createHash(password);
+        final String passwordHash = container.getUserService().createHash(password);
 
-        User savedUser = UserService.instance.addNewUser(name, email, password);
+        User savedUser = container.getUserService().addNewUser(name, email, password);
         deletable.add(savedUser);
 
         if (!savedUser.getName().equals(name)) throw new RuntimeException("Nem egyezik a 2 objektum");
@@ -54,8 +55,7 @@ public class UserServiceTest {
         String emailOld = "emailOld@email.old";
         String passwordOld = "pwOld";
 
-        final User user = UserService.instance.addNewUser(nameOld, emailOld, UserService.instance.createHash(passwordOld));
-        deletable.add(user);
+        final User user = container.getUserService().addNewUser(nameOld, emailOld, container.getUserService().createHash(passwordOld));
 
         DTO_User updatedUserDto = new DTO_User();
         updatedUserDto.setId(user.getId());
@@ -63,7 +63,8 @@ public class UserServiceTest {
         updatedUserDto.setName(nameOld + "new");
         updatedUserDto.setPassword("newPassword");
 
-        UserService.instance.updateUser(updatedUserDto);
+        User updated = container.getUserService().updateUser(updatedUserDto);
+        deletable.add(updated);
 
         User felolvasott = new DBTemplate<User>((session, template) -> {
             session.clear();
@@ -73,7 +74,7 @@ public class UserServiceTest {
         if (!felolvasott.getName().equals(nameOld + "new")) throw new RuntimeException("Nem ment le az update");
         if (!felolvasott.getEmail().equals(emailOld + "new")) throw new RuntimeException("Nem ment le az update");
 
-        String pwHash = UserService.instance.createHash("newPassword");
+        String pwHash = container.getUserService().createHash("newPassword");
 
         if (!felolvasott.getPasswordHash().equals(pwHash)) throw new RuntimeException("Nem ment le az update");
     }

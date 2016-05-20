@@ -4,8 +4,9 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 import hu.gab.wiki.client.AppUtils;
 import hu.gab.wiki.client.events.OnLogin;
-import hu.gab.wiki.client.helper.AuthHelper;
-import hu.gab.wiki.shared.FrontRole;
+import hu.gab.wiki.shared.RoleEntityName;
+import hu.gab.wiki.shared.dto.useradmin.DTO_User;
+import hu.gab.wiki.shared.helper.CommonAuthHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,10 +30,9 @@ public class DrawerManager {
 
         widgets.add(widget);
 
-        if(menuType.equals(DrawerMenuType.ADMIN)){
+        if (menuType.equals(DrawerMenuType.ADMIN)) {
             adminMenusContainer.add(widget);
-        }
-        else if(menuType.equals(DrawerMenuType.VISITOR)){
+        } else if (menuType.equals(DrawerMenuType.VISITOR)) {
             simpleMenusContainer.add(widget);
         }
     }
@@ -54,18 +54,20 @@ public class DrawerManager {
         drawerPanel.add(adminMenusContainer);
     }
 
-    public void initEventHandlers(){
+    public void initEventHandlers() {
         addEventHandlers();
     }
 
-    private void addEventHandlers(){
+    private void addEventHandlers() {
         AppUtils.getClientFactory().getEventBus().addHandler(OnLogin.TYPE, new OnLogin.OnLoginHandler() {
             @Override
             public void onOnLogin(OnLogin event) {
                 adminMenusContainer.clear();
                 new DrawerMenuFiller().fillAdminMenu();
 
-                if(AuthHelper.instance.isEligibleForAction(Arrays.asList(FrontRole.ADMIN))){
+                DTO_User user = AppUtils.getClientFactory().getClientStore().getUser();
+
+                if (CommonAuthHelper.instance.isEligibleForAction(Arrays.asList(RoleEntityName.ADMIN), CommonAuthHelper.getRolesOfUser(user))) {
                     adminMenusContainer.setVisible(true);
                 }
             }

@@ -1,10 +1,7 @@
 package hu.gab.wiki.shared.dto;
 
 import hu.gab.wiki.shared.DTO_Base;
-import hu.gab.wiki.shared.FrontRole;
 import hu.gab.wiki.shared.dto.useradmin.DTO_User;
-
-import java.util.List;
 
 /**
  * @author PG

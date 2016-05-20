@@ -146,6 +146,7 @@ public class MainWrapper extends Composite {
         });
 
         buttonLogin.addClickHandler(event -> {
+            buttonLogin.setFocused(false);
             doLogin();
         });
     }
