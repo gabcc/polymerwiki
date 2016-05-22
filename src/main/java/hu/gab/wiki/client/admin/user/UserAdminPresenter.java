@@ -25,4 +25,8 @@ public interface UserAdminPresenter extends IWikiPresenter<IUserAdminView> {
     interface NeedsRoleList{
         void onRolesLoad(List<DTO_Role> roles);
     }
+
+    void onUserStatusChanged(DTO_User user);
+
+    void saveUserChanges();
 }

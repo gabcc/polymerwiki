@@ -10,8 +10,8 @@ import com.vaadin.polymer.paper.widget.PaperButton;
  * @author PG
  * @since 2016-05-13
  */
-public class SaveableBootstrapModal extends BootstrapModal {
-    interface SaveableBootstrapModelUiBinder extends UiBinder<Widget, SaveableBootstrapModal> {
+public class SavableBootstrapModal extends BootstrapModal {
+    interface SaveableBootstrapModelUiBinder extends UiBinder<Widget, SavableBootstrapModal> {
     }
 
     private static SaveableBootstrapModelUiBinder ourUiBinder = GWT.create(SaveableBootstrapModelUiBinder.class);
@@ -25,14 +25,14 @@ public class SaveableBootstrapModal extends BootstrapModal {
     private ModalSaveClickHandler clickHandler;
 
 
-    public SaveableBootstrapModal(ModalSaveClickHandler saveClickHandler) {
+    public SavableBootstrapModal(ModalSaveClickHandler saveClickHandler) {
         super();
 
         this.clickHandler = saveClickHandler;
         addEventHandlers();
     }
 
-    public SaveableBootstrapModal(Widget header, Widget content, ModalSaveClickHandler saveClickHandler) {
+    public SavableBootstrapModal(Widget header, Widget content, ModalSaveClickHandler saveClickHandler) {
         super(header, content);
 
         this.clickHandler = saveClickHandler;

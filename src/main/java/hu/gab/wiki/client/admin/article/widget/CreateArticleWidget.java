@@ -4,25 +4,25 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.vaadin.polymer.paper.widget.PaperInput;
 import hu.gab.wiki.client.admin.article.ArticleAdminPresenter;
-import hu.gab.wiki.client.widgets.SaveableBootstrapModal;
+import hu.gab.wiki.client.widgets.SavableBootstrapModal;
 
 /**
  * @author PG
  * @since 2016-05-20
  */
-public class CreateArticleWidget implements SaveableBootstrapModal.ModalSaveClickHandler {
-    private SaveableBootstrapModal saveableBootstrapModal;
+public class CreateArticleWidget implements SavableBootstrapModal.ModalSaveClickHandler {
+    private SavableBootstrapModal savableBootstrapModal;
     private ArticleAdminPresenter presenter;
 
     public CreateArticleWidget(ArticleAdminPresenter presenter) {
         this.presenter = presenter;
-        saveableBootstrapModal = createSaveableModal();
+        savableBootstrapModal = createSaveableModal();
     }
 
     private PaperInput articleName;
     private PaperInput articleSlug;
 
-    private SaveableBootstrapModal createSaveableModal() {
+    private SavableBootstrapModal createSaveableModal() {
         Label header = new Label("Create an article");
 
         HTMLPanel form = new HTMLPanel("");
@@ -36,15 +36,15 @@ public class CreateArticleWidget implements SaveableBootstrapModal.ModalSaveClic
         form.add(articleName);
         form.add(articleSlug);
 
-        return new SaveableBootstrapModal(header, form, this);
+        return new SavableBootstrapModal(header, form, this);
     }
 
     public void show() {
-        saveableBootstrapModal.show();
+        savableBootstrapModal.show();
     }
 
     public void hide() {
-        saveableBootstrapModal.hide();
+        savableBootstrapModal.hide();
     }
 
     public PaperInput getArticleName() {

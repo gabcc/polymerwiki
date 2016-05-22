@@ -26,4 +26,6 @@ public interface WikiServiceAsync {
     void addArticle(DTO_LoginData authData, DTO_ArticleSummary articleSummary, AsyncCallback<Void> async);
 
     void listArticleSummaries(AsyncCallback<List<DTO_ArticleSummary>> async);
+
+    void updateUsers(DTO_LoginData authData, List<DTO_User> users, AsyncCallback<Void> async);
 }

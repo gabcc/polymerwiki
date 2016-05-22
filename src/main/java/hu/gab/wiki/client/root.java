@@ -3,6 +3,7 @@ package hu.gab.wiki.client;
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
@@ -48,11 +49,12 @@ public class root implements EntryPoint {
         ((ClientFactoryImpl) clientFactory).setDrawerManager(drawerManager);
 
         webAppContaier.add(mainWrapper);
-        RootPanel.get().add(webAppContaier);
+        RootPanel.get("appContainer").add(webAppContaier);
 
         initIOC_Container(mainWrapper.getContentContainer(), START_PLACE);
 
         afterLoad();
+        hideLoaderStuff();
     }
 
     private void initIOC_Container(SimplePanel simplePanel, Place defaultPlace) {
@@ -89,18 +91,26 @@ public class root implements EntryPoint {
 
         new DrawerMenuFiller().fillVisitorMenu();
 
-        AppUtils.showLoadingSpinner();
-        WikiService.App.getInstance().login("g.percze@gmail.com", "123456", new CommonWikiAsyncHandler<DTO_LoginData>() {
-            @Override
-            public void onSuccess(DTO_LoginData result) {
-                AppUtils.hideLoadingSpinner();
+//        AppUtils.showLoadingSpinner();
+//        WikiService.App.getInstance().login("g.percze@gmail.com", "123456", new CommonWikiAsyncHandler<DTO_LoginData>() {
+//            @Override
+//            public void onSuccess(DTO_LoginData result) {
+//                AppUtils.hideLoadingSpinner();
+//
+//                ClientStore clientStore = AppUtils.getClientFactory().getClientStore();
+//                clientStore.setUser(result.getUser());
+//                clientStore.setToken(result.getToken());
+//
+//                AppUtils.getClientFactory().getEventBus().fireEvent(new OnLogin());
+//            }
+//        });
+    }
 
-                ClientStore clientStore = AppUtils.getClientFactory().getClientStore();
-                clientStore.setUser(result.getUser());
-                clientStore.setToken(result.getToken());
-
-                AppUtils.getClientFactory().getEventBus().fireEvent(new OnLogin());
-            }
-        });
+    /**
+     * Hides the loading spinner and shows the real app
+     */
+    private void hideLoaderStuff(){
+        RootPanel.get("loading-indicator").getElement().getStyle().setDisplay(Style.Display.NONE);
+        RootPanel.get("appContainer").getElement().getStyle().setDisplay(Style.Display.BLOCK);
     }
 }

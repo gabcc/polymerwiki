@@ -67,6 +67,15 @@ public class WikiServiceImpl extends RemoteServiceServlet implements WikiService
     }
 
     @Override
+    public void updateUsers(DTO_LoginData authData, List<DTO_User> users) throws CommonWikiException {
+        authAndAuth(authData, ServerCLC.Auth.ADD_UPDATE_USER_ROLES);
+
+        for (DTO_User user : users) {
+            container.getUserService().updateUser(user);
+        }
+    }
+
+    @Override
     public List<DTO_Role> getRoles(DTO_LoginData authData) {
         authAndAuth(authData, ServerCLC.Auth.ADD_UPDATE_USER_ROLES);
 

@@ -27,19 +27,20 @@
     <meta name="viewport"
           content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
 
-    <!--Polymer imports-->
-    <script src="root/bower_components/webcomponentsjs/webcomponents.js"></script>
-    <!--<link rel="import" href="root/bower_components/iron-flex-layout/iron-flex-layout.html">-->
-
-    <script type="text/javascript" language="javascript" src="root/root.nocache.js"></script>
-
     <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="vendor/bootstrap/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="vendor/fontawesome/css/font-awesome.min.css">
 
     <script type="text/javascript" src="vendor/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="vendor/bootstrap/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="wiki.css">
+
+    <!--Polymer imports-->
+    <script src="root/bower_components/webcomponentsjs/webcomponents.js"></script>
+    <!--<link rel="import" href="root/bower_components/iron-flex-layout/iron-flex-layout.html">-->
+
+    <script type="text/javascript" language="javascript" src="root/root.nocache.js"></script>
   </head>
 
   <!--                                           -->
@@ -48,6 +49,14 @@
   <!-- to create a completely dynamic UI.        -->
   <!--                                           -->
   <body>
+
+    <!--While the application is loading, this should be visible-->
+    <div id="loading-indicator">
+      <i class="fa fa-spinner" aria-hidden="true"></i>
+    </div>
+
+
+    <div id="appContainer" style="display: none;"></div>
 
     <!-- OPTIONAL: include this if you want history support -->
     <iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1' style="position:absolute;width:0;height:0;border:0"></iframe>

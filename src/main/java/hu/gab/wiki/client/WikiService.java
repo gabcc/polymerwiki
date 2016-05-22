@@ -35,6 +35,8 @@ public interface WikiService extends RemoteService {
 
     void updateUser(DTO_LoginData authData, DTO_User user) throws CommonWikiException;
 
+    void updateUsers(DTO_LoginData authData, List<DTO_User> users) throws CommonWikiException;
+
     List<DTO_Role> getRoles(DTO_LoginData authData);
 
     DTO_LoginData login(String email, String password) throws CommonWikiException;

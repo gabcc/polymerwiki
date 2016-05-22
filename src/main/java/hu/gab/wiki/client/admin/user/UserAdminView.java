@@ -1,11 +1,16 @@
 package hu.gab.wiki.client.admin.user;
 
 import com.google.gwt.cell.client.ButtonCell;
+import com.google.gwt.cell.client.CheckboxCell;
+import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
+import com.google.gwt.user.cellview.client.RowStyles;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -15,7 +20,6 @@ import com.vaadin.polymer.paper.widget.PaperButton;
 import hu.gab.wiki.client.admin.user.widget.UserAdder;
 import hu.gab.wiki.client.admin.user.widget.UserModifier;
 import hu.gab.wiki.client.mvp.WikiView;
-import hu.gab.wiki.client.widgets.SaveableBootstrapModal;
 import hu.gab.wiki.shared.dto.useradmin.DTO_User;
 import hu.gab.wiki.shared.status.UserStatus;
 
@@ -38,8 +42,8 @@ public class UserAdminView extends WikiView<UserAdminPresenter> implements IUser
     @UiField
     PaperButton buttonAddNewUser;
 
-//    @UiField
-//    PaperButton buttonDisableSelected;
+    @UiField
+    PaperButton buttonSaveChanges;
 
     private CellTable<DTO_User> cellTable = new CellTable<>();
 
@@ -47,7 +51,6 @@ public class UserAdminView extends WikiView<UserAdminPresenter> implements IUser
         initWidget(ourUiBinder.createAndBindUi(this));
 
         createCellTable();
-        addEventHandlers();
     }
 
     @Override
@@ -57,7 +60,9 @@ public class UserAdminView extends WikiView<UserAdminPresenter> implements IUser
 
     @Override
     public void setUserList(List<DTO_User> userList) {
+        cellTable.setRowData(0, new ArrayList<>());
         cellTable.setRowData(0, userList);
+        cellTable.redraw();
     }
 
     @Override
@@ -109,19 +114,28 @@ public class UserAdminView extends WikiView<UserAdminPresenter> implements IUser
             }
         }, "Email");
 
-        cellTable.addColumn(new TextColumn<DTO_User>() {
+        CheckboxCell checkboxCell = new CheckboxCell();
+        Column<DTO_User, Boolean> statusColumn = new Column<DTO_User, Boolean>(checkboxCell) {
             @Override
-            public String getValue(DTO_User object) {
-                UserStatus status = object.getStatus();
-                if (status.equals(UserStatus.ACTIVE)) {
-                    return "active";
-                } else if (status.equals(UserStatus.DISABLED)) {
-                    return "disabled";
+            public Boolean getValue(DTO_User object) {
+                if (object.getStatus().equals(UserStatus.ACTIVE)) {
+                    return true;
                 } else {
-                    return "";
+                    return false;
                 }
             }
-        }, "Status");
+        };
+        statusColumn.setFieldUpdater(new FieldUpdater<DTO_User, Boolean>() {
+            @Override
+            public void update(int index, DTO_User object, Boolean value) {
+                object.setStatus(value ? UserStatus.ACTIVE : UserStatus.DISABLED);
+                onUserStatusChanged(object);
+
+                activity.onUserStatusChanged(object);
+            }
+        });
+
+        cellTable.addColumn(statusColumn, "Status");
 
 
         Column<DTO_User, String> detailsButtonCol = new Column<DTO_User, String>(new ButtonCell()) {
@@ -135,6 +149,17 @@ public class UserAdminView extends WikiView<UserAdminPresenter> implements IUser
         });
         cellTable.addColumn(detailsButtonCol, "Részletek");
 
+        cellTable.setRowStyles(new RowStyles<DTO_User>() {
+            @Override
+            public String getStyleNames(DTO_User row, int rowIndex) {
+                if (row.getStatus().equals(UserStatus.DISABLED)) {
+                    return "w-tablerow-disabled";
+                } else {
+                    return "";
+                }
+            }
+        });
+
         celltableHolder.add(cellTable);
     }
 
@@ -143,9 +168,18 @@ public class UserAdminView extends WikiView<UserAdminPresenter> implements IUser
         userModifier.show();
     }
 
-    private void addEventHandlers() {
-        buttonAddNewUser.addClickHandler(p -> {
-            new UserAdder(activity).show();
-        });
+    private void onUserStatusChanged(DTO_User user) {
+        activity.onUserStatusChanged(user);
+    }
+
+
+    @UiHandler("buttonAddNewUser")
+    public void onAddNewUserButtonClick(ClickEvent event){
+        new UserAdder(activity).show();
+    }
+
+    @UiHandler("buttonSaveChanges")
+    public void onUserChangesSaveClick(ClickEvent event){
+        activity.saveUserChanges();
     }
 }

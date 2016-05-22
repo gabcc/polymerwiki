@@ -8,7 +8,7 @@
                 <div class="col-md-12">
                     <g:HTMLPanel ui:field="buttonsContainer">
                         <paper:PaperButton ui:field="buttonAddNewUser" addStyleNames="w-btn-primary">Add new user</paper:PaperButton>
-                        <!--<paper:PaperButton ui:field="buttonDisableSelected" addStyleNames="w-btn-error">Disable selected user</paper:PaperButton>-->
+                        <paper:PaperButton ui:field="buttonSaveChanges" addStyleNames="w-btn-primary">Save changes</paper:PaperButton>
                     </g:HTMLPanel>
                 </div>
             </div>

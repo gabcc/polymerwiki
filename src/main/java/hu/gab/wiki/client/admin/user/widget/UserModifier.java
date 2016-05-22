@@ -6,7 +6,7 @@ import com.vaadin.polymer.paper.widget.PaperInput;
 import com.vaadin.polymer.paper.widget.PaperRadioButton;
 import com.vaadin.polymer.paper.widget.PaperRadioGroup;
 import hu.gab.wiki.client.admin.user.UserAdminPresenter;
-import hu.gab.wiki.client.widgets.SaveableBootstrapModal;
+import hu.gab.wiki.client.widgets.SavableBootstrapModal;
 import hu.gab.wiki.shared.dto.useradmin.DTO_Role;
 import hu.gab.wiki.shared.dto.useradmin.DTO_User;
 
@@ -19,13 +19,13 @@ import java.util.Map;
  * @author PG
  * @since 2016-05-15
  */
-public class UserModifier implements UserAdminPresenter.NeedsRoleList, SaveableBootstrapModal.ModalSaveClickHandler {
+public class UserModifier implements UserAdminPresenter.NeedsRoleList, SavableBootstrapModal.ModalSaveClickHandler {
 
     private DTO_User user;
 
     private UserAdminPresenter presenter;
 
-    private SaveableBootstrapModal modal;
+    private SavableBootstrapModal modal;
 
     private PaperInput inputName;
     private PaperInput inputEmail;
@@ -75,8 +75,7 @@ public class UserModifier implements UserAdminPresenter.NeedsRoleList, SaveableB
     }
 
     public DTO_User createModifiedUser() {
-        DTO_User dto_user = new DTO_User();
-        dto_user.setId(user.getId());
+        DTO_User dto_user = user;
 
         dto_user.setName(getUserName());
         dto_user.setEmail(getUserEmail());
@@ -130,7 +129,7 @@ public class UserModifier implements UserAdminPresenter.NeedsRoleList, SaveableB
         inputContainer.add(roleLabel);
         inputContainer.add(radioGroup);
 
-        modal = new SaveableBootstrapModal(header, inputContainer, this);
+        modal = new SavableBootstrapModal(header, inputContainer, this);
     }
 
     private void fetchRoles() {

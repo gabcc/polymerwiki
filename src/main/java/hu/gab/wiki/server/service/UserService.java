@@ -72,6 +72,7 @@ public class UserService {
 
                 oldUser.setName(user.getName());
                 oldUser.setEmail(user.getEmail());
+                oldUser.setStatus(user.getStatus());
 
                 if (user.getPassword() != null && !user.getPassword().equals("")) {
                     oldUser.setPasswordHash(createHash(user.getPassword()));

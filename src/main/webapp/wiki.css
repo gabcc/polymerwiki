@@ -21,6 +21,52 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.2); }
 
+#loading-indicator {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  text-align: center; }
+  #loading-indicator .fa-spinner {
+    font-size: 50px;
+    position: absolute;
+    top: 40%;
+    -webkit-animation-name: spin;
+    -webkit-animation-duration: 2500ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: spin;
+    -moz-animation-duration: 2500ms;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    -ms-animation-name: spin;
+    -ms-animation-duration: 2500ms;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-timing-function: linear;
+    animation-name: spin;
+    animation-duration: 2500ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear; }
+@-ms-keyframes spin {
+  from {
+    -ms-transform: rotate(0deg); }
+  to {
+    -ms-transform: rotate(360deg); } }
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg); }
+  to {
+    -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg); }
+  to {
+    -webkit-transform: rotate(360deg); } }
+@keyframes spin {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
 .w-btn-primary {
   color: #fff;
   background: #388E3C; }
@@ -59,5 +105,9 @@
   border-bottom: 1px solid #388E3C;
   border-bottom-right-radius: 5px;
   paddin-bottom: 10px; }
+
+.w-tablerow-disabled {
+  background: rgba(0, 0, 0, 0.1) !important;
+  color: #000 !important; }
 
 /*# sourceMappingURL=wiki.css.map */

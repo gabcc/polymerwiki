@@ -15,7 +15,6 @@ import hu.gab.wiki.client.front.article.ArticlePlace;
 import hu.gab.wiki.client.front.home.HomeActivity;
 import hu.gab.wiki.client.front.home.HomePlace;
 import hu.gab.wiki.client.mvp.WikiPlace;
-import hu.gab.wiki.shared.Tuple;
 import hu.gab.wiki.shared.dto.useradmin.DTO_Role;
 import hu.gab.wiki.shared.dto.useradmin.DTO_User;
 
@@ -31,39 +30,34 @@ public class ActivityMapper implements com.google.gwt.activity.shared.ActivityMa
 
     private static Place DEFAULT_PLACE = new HomePlace();
 
-    private List<Tuple<Class, ActivityLoaderFunction>> placeActivityCreators = new ArrayList<>();
-
     public ActivityMapper(ClientFactory clientFactory) {
         this.clientFactory = clientFactory;
-
-        initActivityMap();
-    }
-
-    private void initActivityMap() {
-        placeActivityCreators.add(new Tuple<>(HomePlace.class, (c) -> new HomeActivity(c, c.getHomeView())));
-        placeActivityCreators.add(new Tuple<>(AboutPlace.class, (c) -> new AboutActivity(c, c.getAboutView())));
-        placeActivityCreators.add(new Tuple<>(ArticlePlace.class, (c) -> new ArticleActivity(c, c.getArticleView())));
-
-        placeActivityCreators.add(new Tuple<>(UserAdminPlace.class, (c) -> new UserAdminActivity(c, c.getUserAdminView())));
-        placeActivityCreators.add(new Tuple<>(ArticleAdminPlace.class, (c) -> new ArticleAdminActivity(c, c.getArticleAdminView())));
     }
 
     @Override
     public Activity getActivity(Place place) {
         Activity toGo = new HomeActivity(clientFactory, clientFactory.getHomeView());
 
-        for (Tuple<Class, ActivityLoaderFunction> functionTuple : placeActivityCreators) {
-            if (functionTuple.getT1().equals(place.getClass())) {
-                if (place instanceof WikiPlace) {
-                    if (isAuthorized((WikiPlace) place)) {
-                        toGo = functionTuple.getT2().createActivity(clientFactory);
-                    } else {
-                        toGo = getActivity(DEFAULT_PLACE);
-                    }
-                } else {
-                    toGo = functionTuple.getT2().createActivity(clientFactory);
-                }
+        if (place instanceof WikiPlace) {
+            if (!isAuthorized((WikiPlace) place)) {
+                return getActivity(DEFAULT_PLACE);
             }
+        }
+
+        if (place instanceof HomePlace) {
+            return new HomeActivity(clientFactory, clientFactory.getHomeView());
+        }
+        if (place instanceof AboutPlace) {
+            return new AboutActivity(clientFactory, clientFactory.getAboutView());
+        }
+        if (place instanceof ArticlePlace) {
+            return new ArticleActivity(clientFactory, clientFactory.getArticleView());
+        }
+        if (place instanceof UserAdminPlace) {
+            return new UserAdminActivity(clientFactory, clientFactory.getUserAdminView());
+        }
+        if (place instanceof ArticleAdminPlace) {
+            return new ArticleAdminActivity(clientFactory, clientFactory.getArticleAdminView());
         }
 
         clientFactory.getEventBus().fireEvent(new BeforeActivityChanged(place));

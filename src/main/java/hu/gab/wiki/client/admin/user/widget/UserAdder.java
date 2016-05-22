@@ -5,15 +5,15 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.vaadin.polymer.paper.widget.PaperInput;
 import hu.gab.wiki.client.admin.user.UserAdminPresenter;
-import hu.gab.wiki.client.widgets.SaveableBootstrapModal;
+import hu.gab.wiki.client.widgets.SavableBootstrapModal;
 
 /**
  * @author PG
  * @since 2016-05-13
  */
 public class UserAdder {
-    private SaveableBootstrapModal.ModalSaveClickHandler clickHandler;
-    private SaveableBootstrapModal modal;
+    private SavableBootstrapModal.ModalSaveClickHandler clickHandler;
+    private SavableBootstrapModal modal;
 
     private UserAdminPresenter userAdminPresenter;
 
@@ -30,7 +30,7 @@ public class UserAdder {
 
         Label label = new Label("Kérlek add meg a kitöltendő elemeket");
 
-        modal = new SaveableBootstrapModal(clickHandler);
+        modal = new SavableBootstrapModal(clickHandler);
         modal.addHeader(label);
         modal.addContent(createModalContent());
 

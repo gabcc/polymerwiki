@@ -1,0 +1,21 @@
+{
+  "name": "polymerwiki",
+  "homepage": "https://github.com/gabcc/polymerwiki",
+  "authors": [
+    "Gabor Percze <g.percze@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "GPL",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "font-awesome": "fontawesome#^4.6.3"
+  }
+}

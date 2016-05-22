@@ -9,15 +9,13 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
-import com.sun.tools.hat.internal.model.Root;
-import com.sun.tools.javac.util.Context;
 
 /**
  * @author PG
  * @since 2016-05-13
  * <p>
  * Modális wrapper osztály, hogy lehessen bootstrap modalokat használni.
- *
+ * <p>
  * TODO valahogyan ráiratkozni a bootstrap eltűnésre is, mert beragad az eventhandler
  */
 public class BootstrapModal extends Composite {
@@ -50,7 +48,7 @@ public class BootstrapModal extends Composite {
         doWidgetInit();
     }
 
-    protected void doWidgetInit(){
+    protected void doWidgetInit() {
         initWidget(ourUiBinder.createAndBindUi(this));
     }
 
@@ -70,7 +68,7 @@ public class BootstrapModal extends Composite {
 //        addEnterListener();
     }
 
-    private void addEnterListener(){
+    private void addEnterListener() {
         registration = RootPanel.get().addDomHandler(new KeyDownHandler() {
             @Override
             public void onKeyDown(KeyDownEvent event) {
@@ -91,7 +89,7 @@ public class BootstrapModal extends Composite {
 //        removeEnterListener();
     }
 
-    private void removeEnterListener(){
+    private void removeEnterListener() {
         registration.removeHandler();
     }
 

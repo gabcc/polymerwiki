@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,oBAAoB;EAClB,UAAU,EAAE,6BAA0B;EACtC,KAAK,EAAE,eAAe",
+"sources": ["useradmin.sass"],
+"names": [],
+"file": "useradmin.css"
+}
